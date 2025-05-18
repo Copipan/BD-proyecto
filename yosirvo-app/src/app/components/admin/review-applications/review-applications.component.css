@@ -1,0 +1,14 @@
+.purple {
+    background-color: #8775A7;
+}
+
+button {
+    background-color: #D5A521;
+    border: none;
+}
+
+button:hover {
+    background-color: #E5C56D !important;
+    box-shadow: none !important;
+    border: none;
+}

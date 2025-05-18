@@ -10,6 +10,8 @@ import { ApplicationStatusComponent } from './components/students/application-st
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { ReviewApplicationsComponent } from './components/admin/review-applications/review-applications.component';
 import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './components/students/profile/profile.component';
+import { AdminProfileComponent } from './components/admin/admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { FormsModule } from '@angular/forms';
     ApplyFormComponent,
     ApplicationStatusComponent,
     AdminDashboardComponent,
-    ReviewApplicationsComponent
+    ReviewApplicationsComponent,
+    ProfileComponent,
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,

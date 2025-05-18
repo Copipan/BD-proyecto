@@ -1,1 +1,47 @@
-<p>Aquí es donde se aprueba las solicitudes de los alumnos</p>
+<div class="container mt-4">
+    <h2 class="mb-4">Solicitudes de estudiantes</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Buscar por nombre o correo" [(ngModel)]="searchQuery" />
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table">
+                <tr>
+                    <th class="purple text-white">Nombre</th>
+                    <th class="purple text-white">Correo</th>
+                    <th class="purple text-white">Fecha de envío</th>
+                    <th class="purple text-white">Estado</th>
+                    <th class="purple text-white">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let application of filteredApplications()">
+                    <td>{{ application.name }}</td>
+                    <td>{{ application.email }}</td>
+                    <td>{{ application.date | date: 'shortDate' }}</td>
+                    <td>
+                    <span class="badge" [ngClass]="{
+                        'bg-success': application.status === 'Aprovada',
+                        'bg-warning': application.status === 'En proceso',
+                        'bg-danger': application.status === 'Rechazada'
+                    }">
+                            {{ application.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">
+                            View
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="filteredApplications().length === 0">
+                    <td colspan="5" class="text-center">No applications found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

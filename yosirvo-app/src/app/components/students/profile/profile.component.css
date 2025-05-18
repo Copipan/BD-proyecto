@@ -1,0 +1,44 @@
+.student-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.student-card-header {
+    background-color: #8775A7;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.student-card-body {
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.student-info {
+    margin-bottom: 10px;
+}
+
+.pulsating-border {
+    border: 5px solid #D5A521;
+    border-radius: 10px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px #D5A521, 0 0 10px #D5A521, 0 0 15px #D5A521, 0 0 20px #D5A521;
+        border-color: #ffffff;
+    }
+    50% {
+        box-shadow: 0 0 10px #D5A521, 0 0 15px #D5A521, 0 0 20px #D5A521, 0 0 25px #D5A521;
+        border-color: #D5A521;
+    }
+    100% {
+        box-shadow: 0 0 5px #D5A521, 0 0 10px #D5A521, 0 0 15px #D5A521, 0 0 20px #D5A521;
+        border-color: #ffffff;
+    }
+}
