@@ -1,1 +1,33 @@
-<p>Aquí es donde se ve si se aprobó la solicitud o no</p>
+<div class="container mt-5">
+  <label for="app-status" class="form-label">Tu solicitud se encuentra:</label>
+  <select class="form-select" id="app-status" [(ngModel)]="appStatus" (change)="updateProgress()">
+    <option value="en-proceso">En proceso</option>
+    <option value="aceptada">Aceptada</option>
+    <option value="rechazada">Rechazada</option>
+  </select>
+
+  <div class="card shadow mt-3">
+    <div class="card-header text-white">
+      <h5 class="mb-0">Tu progreso en el servicio social</h5>
+    </div>
+    <div class="card-body">
+
+      <p class="mb-1">Entrega de documentos<span class="float-end">{{ entregaDocumentos }}%</span></p>
+      <div class="progress mb-3">
+        <div class="progress-bar bg-success" role="progressbar" [style.width]="entregaDocumentos + '%'" [attr.aria-valuenow]="entregaDocumentos" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+      <p class="mb-1">Entrega de reportes <span class="float-end">{{ entregaReportes }}%</span></p>
+      <div class="progress mb-3">
+        <div class="progress-bar bg-info" role="progressbar" [style.width]="entregaReportes + '%'" [attr.aria-valuenow]="entregaReportes" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+      <p class="mb-1">Horas trabajadas <span class="float-end">{{ horasTrabajadas }}%</span></p>
+      <div class="progress mb-3">
+        <div class="progress-bar bg-warning" role="progressbar" [style.width]="horasTrabajadas + '%'" [attr.aria-valuenow]="horasTrabajadas" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

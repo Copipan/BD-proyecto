@@ -1,0 +1,40 @@
+#wrapper {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+  height: 100%;
+  overflow: hidden;
+}
+
+.d-flex.flex-column {
+  height: 100vh;
+}
+
+#sidebar-wrapper {
+  min-width: 250px;
+  max-width: 250px;
+  transition: all 0.3s;
+  height: 100%;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: -250px;
+}
+
+button {
+    background-color: #D5A521;
+    border: none;
+}
+
+button:hover {
+    background-color: #E5C56D !important;
+    box-shadow: none !important;
+    border: none;
+}

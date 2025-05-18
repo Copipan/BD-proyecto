@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent {
-
+  toggleSidebar() {
+    const wrapper = document.getElementById('wrapper');
+    wrapper?.classList.toggle('toggled');
+  }
 }

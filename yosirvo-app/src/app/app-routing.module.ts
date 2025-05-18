@@ -9,11 +9,23 @@ import { StudentDashboardComponent } from './components/students/student-dashboa
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'student-dashboard', component: StudentDashboardComponent },
-  { path: 'apply-form', component: ApplyFormComponent },
-  { path: 'application-status', component: ApplicationStatusComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
-  { path: 'review-applications', component: ReviewApplicationsComponent }
+  { 
+    path: 'student-dashboard', 
+    component: StudentDashboardComponent,
+    children: [
+      { path: 'apply-form', component: ApplyFormComponent },
+      { path: 'application-status', component: ApplicationStatusComponent }
+    ]
+  },
+
+  { 
+    path: 'admin-dashboard', 
+    component: AdminDashboardComponent,
+    children: [
+      { path: 'review-applications', component: ReviewApplicationsComponent }
+    ]
+  },
+  
 ];
 
 @NgModule({

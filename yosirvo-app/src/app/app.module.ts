@@ -9,6 +9,7 @@ import { ApplyFormComponent } from './components/students/apply-form/apply-form.
 import { ApplicationStatusComponent } from './components/students/application-status/application-status.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { ReviewApplicationsComponent } from './components/admin/review-applications/review-applications.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReviewApplicationsComponent } from './components/admin/review-applicati
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule  
   ],
   providers: [
     provideClientHydration(withEventReplay())

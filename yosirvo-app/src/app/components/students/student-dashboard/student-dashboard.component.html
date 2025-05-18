@@ -1,1 +1,24 @@
-<p>Estás ingresado como estudiante</p>
+<div class="d-flex flex-column">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom p-2">
+            <button class="btn btn-primary" (click)="toggleSidebar()">☰</button>
+        </nav>
+    </div>
+
+    <div class="d-flex" id="wrapper">
+        <div class="border-end bg-light" id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <a routerLink="apply-form" class="list-group-item list-group-item-action bg-light">Inicio</a>
+                <a routerLink="apply-form" class="list-group-item list-group-item-action bg-light">Registro</a>
+                <a routerLink="application-status" class="list-group-item list-group-item-action bg-light">Progreso</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Cerrar Sesión</a>
+            </div>
+        </div>
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid mt-3">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

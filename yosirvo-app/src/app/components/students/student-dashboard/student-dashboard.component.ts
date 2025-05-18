@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './student-dashboard.component.css'
 })
 export class StudentDashboardComponent {
-
+  toggleSidebar() {
+    const wrapper = document.getElementById('wrapper');
+  wrapper?.classList.toggle('toggled');
+  }
 }
