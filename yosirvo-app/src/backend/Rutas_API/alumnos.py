@@ -27,3 +27,23 @@ def create_alumno(alumno: Alumno):
     cursor.close()
     conn.close()
     return {"message": "Alumno creado"}
+
+@router.put("/{alumno_id}")
+def update_alumno(alumno_id: int, alumno: Alumno):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE alumnos SET nombre = :1 WHERE id = :2", [alumno.nombre, alumno_id])
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return {"message": "Alumno actualizado"}
+
+@router.delete("/{alumno_id}")
+def delete_alumno(alumno_id: int):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM alumnos WHERE id = :1", [alumno_id])
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return {"message": "Alumno eliminado"}
