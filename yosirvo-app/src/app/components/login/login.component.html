@@ -1,25 +1,25 @@
 <div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card" style="width: 20rem;">
-      <div class="card-body">
-        <h5 class="card-title text-center mb-4">Iniciar sesión</h5>
-        
-        <form>
+  <div class="card" style="width: 20rem;">
+    <div class="card-body">
+      <h5 class="card-title text-center mb-4">Iniciar sesión</h5>
 
-          <div class="mb-3">
-            <label for="username" class="form-label">Usuario UACH:</label>
-            <input type="text" class="form-control" id="username" placeholder="Ingresa tu usuario" required>
-          </div>
+      <form (ngSubmit)="login()" #loginForm="ngForm">
 
-          <div class="mb-3">
-            <label for="password" class="form-label">Contraseña:</label>
-            <input type="password" class="form-control" id="password" placeholder="Ingresa tu conraseña" required>
-          </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico:</label>
+          <input type="email" class="form-control" id="email" name="email" required [(ngModel)]="email"
+            placeholder="Ingresa tu usuario">
+        </div>
 
-          <button (click)="loginAsStudent()" class="btn btn-primary w-100">Estudiante</button>
-          <p></p>
-          <button (click)="loginAsAdmin()" class="btn btn-primary w-100">Admin</button>
-        </form>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña:</label>
+          <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="password"
+            placeholder="Ingresa tu contraseña">
+        </div>
 
-      </div>
+        <button type="submit" class="btn btn-primary w-100">  Login </button>
+
+      </form>
     </div>
   </div>
+</div>
