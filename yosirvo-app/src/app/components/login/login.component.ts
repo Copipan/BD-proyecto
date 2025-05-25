@@ -10,14 +10,14 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  email = '';
+  username = '';
   password = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login() {
     const loginData = {
-      email: this.email,
+      username: this.username,
       password: this.password
     };
 

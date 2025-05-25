@@ -6,8 +6,7 @@
       <form (ngSubmit)="login()" #loginForm="ngForm">
 
         <div class="mb-3">
-          <label for="email" class="form-label">Correo electrónico:</label>
-          <input type="email" class="form-control" id="email" name="email" required [(ngModel)]="email"
+          <input type="text" class="form-control" id="username" name="username" required [(ngModel)]="username"
             placeholder="Ingresa tu usuario">
         </div>
 

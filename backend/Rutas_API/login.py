@@ -6,22 +6,22 @@ router = APIRouter()
 connection = get_connection()
 
 class LoginData(BaseModel):
-    email: str
+    username: str
     password: str
 
 @router.post("/login")
 def login(data: LoginData):
     cursor = connection.cursor()
 
-    query = "SELECT correo, tipo_usuario FROM usuarios WHERE correo = :email AND contrasena = :password"
-    cursor.execute(query, email=data.email, password=data.password)
+    query = "SELECT username, user_type FROM users WHERE username = :username AND password = :password"
+    cursor.execute(query, {"username": data.username, "password": data.password})
     user = cursor.fetchone()
 
     if user:
-        email, role = user
+        username, role = user
         return {
             "message": "Inicio de sesión correcto",
-            "email": email,
+            "username": username,
             "role": role  
         }
     else:
