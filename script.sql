@@ -53,16 +53,20 @@ CREATE TABLE campus (
     id NUMBER CONSTRAINT CAMPUS_PK PRIMARY KEY,
     nombre VARCHAR2(100) NOT NULL
 );
-
-CREATE TABLE modalidades (
+--Modalidad de carrera (Presencial 1/Virtual 2)
+CREATE TABLE modalidad (
     id NUMBER  PRIMARY KEY,
     nombre VARCHAR2(100) NOT NULL
 );
 
 CREATE TABLE carreras (
     id NUMBER CONSTRAINT CARRERAS_PK PRIMARY KEY,
-    nombre VARCHAR2(100) NOT NULL
+    nombre VARCHAR2(100) NOT NULL,
+    modalidad_id NUMBER,
+    CONSTRAINT MODALIDAD_ID_AL_FK FOREIGN KEY (modalidad_id) REFERENCES modalidad(id)
 );
+
+
 
 -- Dirección genérica (alumno y institución)
 CREATE TABLE direcciones (
@@ -93,17 +97,23 @@ CREATE TABLE alumnos (
     nombre VARCHAR2(100),
     carrera_id NUMBER,
     campus_id NUMBER,
-    modalidad_id NUMBER,
     porcentaje_creditos_aprobados NUMBER(5,2),
     direccion_id NUMBER,
     telefono VARCHAR2(20),
     celular VARCHAR2(20),
     correo VARCHAR2(100),
+    estado NUMBER,
     CONSTRAINT USUARIO_ID_AL_FK FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     CONSTRAINT CARRERA_ID_AL_FK FOREIGN KEY (carrera_id) REFERENCES carreras(id),
     CONSTRAINT CAMPUS_ID_AL_FK FOREIGN KEY (campus_id) REFERENCES campus(id),
-    CONSTRAINT MODALIDAD_ID_AL_FK FOREIGN KEY (modalidad_id) REFERENCES modalidades(id),
-    CONSTRAINT DIRECCION_ID_AL_FK FOREIGN KEY (direccion_id) REFERENCES direcciones(id)
+    CONSTRAINT DIRECCION_ID_AL_FK FOREIGN KEY (direccion_id) REFERENCES direcciones(id),
+    CONSTRAINT ESTADO_ID_AL_FK FOREIGN KEY (estado_id) REFERENCES estado(id)
+);
+
+--Subcategorías de alumnos (Pendiente 0, Aceptado 1, Rechazado 2)
+CREATE TABLE estado (
+    id NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100) NOT NULL
 );
 
 -- Administradores
