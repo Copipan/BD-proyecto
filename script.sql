@@ -181,3 +181,59 @@ CREATE TABLE horas_servicio (
     horas NUMBER CHECK (horas > 0),
     CONSTRAINT PROGRESO_ID_HO_FK FOREIGN KEY (progreso_id) REFERENCES progreso_servicio(id)
 );
+
+
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (1, 'juan.perez@email.com', 'clave123', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (2, 'maria.garcia@email.com', 'pass456', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (3, 'carlos.lopez@email.com', 'qwerty789', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (4, 'laura.mendez@email.com', 'abc12345', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (5, 'jose.ramirez@email.com', 'pass2025', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (6, 'ana.torres@email.com', 'clave987', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (7, 'luis.alvarez@email.com', 'mypass12', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (8, 'patricia.sanchez@email.com', 'contra456', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (9, 'diego.fernandez@email.com', 'clave789', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (10, 'carla.romero@email.com', 'segura321', 'cliente');
+
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (11, 'david.morales@email.com', 'testclave', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (12, 'valeria.nunez@email.com', 'clave321', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (13, 'ricardo.ortiz@email.com', 'clave456', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (14, 'paula.gomez@email.com', 'clave654', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (15, 'javier.silva@email.com', 'access123', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (16, 'luisa.flores@email.com', 'passluisa', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (17, 'fernando.vargas@email.com', 'qwe789asd', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (18, 'daniela.cruz@email.com', 'segura2025', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (19, 'alejandro.rios@email.com', 'mypassword', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (20, 'camila.molina@email.com', 'clavecamila', 'cliente');
+
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (21, 'andres.castillo@email.com', '123secure', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (22, 'sofia.leon@email.com', 'leonsofia', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (23, 'martin.reyes@email.com', 'clave3210', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (24, 'ines.salazar@email.com', 'abcd9876', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (25, 'sergio.castro@email.com', 'contraseña', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (26, 'marta.espinoza@email.com', 'claveclave', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (27, 'julian.martinez@email.com', 'julpass', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (28, 'melina.duran@email.com', 'melidura', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (29, 'roberto.carrillo@email.com', 'robocarr', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (30, 'rebecca.solis@email.com', 'pass4567', 'cliente');
+
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (31, 'esteban.benitez@email.com', 'claveclara', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (32, 'silvia.acosta@email.com', 'silvia321', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (33, 'hugo.navarro@email.com', 'hugopass', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (34, 'elena.cortes@email.com', 'elena987', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (35, 'oscar.mendoza@email.com', 'oscaros', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (36, 'lorena.paz@email.com', 'lorenita', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (37, 'ramon.vera@email.com', 'rampass', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (38, 'viviana.escobar@email.com', 'vivpass', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (39, 'gustavo.saenz@email.com', 'gusclave', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (40, 'natalia.miranda@email.com', 'natpass', 'cliente');
+
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (41, 'hector.iglesias@email.com', 'hector123', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (42, 'lorenzo.caballero@email.com', 'lorenzo456', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (43, 'brenda.araujo@email.com', 'brendita', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (44, 'joaquin.valdez@email.com', 'joaopass', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (45, 'susana.rivera@email.com', 'susyclave', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (46, 'manuel.palacios@email.com', 'manpass', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (47, 'veronica.arenas@email.com', 'vero456', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (48, 'ignacio.bustos@email.com', 'nachopass', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (49, 'claudia.lagos@email.com', 'clauclave', 'cliente');
+INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (50, 'gabriel.mesa@email.com', 'gabpass', 'cliente');
