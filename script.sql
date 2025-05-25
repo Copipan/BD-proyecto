@@ -102,7 +102,7 @@ CREATE TABLE alumnos (
     telefono VARCHAR2(20),
     celular VARCHAR2(20),
     correo VARCHAR2(100),
-    estado NUMBER,
+    estado_id NUMBER,
     CONSTRAINT USUARIO_ID_AL_FK FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     CONSTRAINT CARRERA_ID_AL_FK FOREIGN KEY (carrera_id) REFERENCES carreras(id),
     CONSTRAINT CAMPUS_ID_AL_FK FOREIGN KEY (campus_id) REFERENCES campus(id),
@@ -192,7 +192,7 @@ CREATE TABLE horas_servicio (
     CONSTRAINT PROGRESO_ID_HO_FK FOREIGN KEY (progreso_id) REFERENCES progreso_servicio(id)
 );
 
-
+--Usuarios
 INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (1, 'juan.perez@email.com', 'clave123', 'cliente');
 INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (2, 'maria.garcia@email.com', 'pass456', 'cliente');
 INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (3, 'carlos.lopez@email.com', 'qwerty789', 'cliente');
@@ -247,3 +247,75 @@ INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (47, 'veronic
 INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (48, 'ignacio.bustos@email.com', 'nachopass', 'cliente');
 INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (49, 'claudia.lagos@email.com', 'clauclave', 'cliente');
 INSERT INTO usuarios (id, correo, contrasena, tipo_usuario) VALUES (50, 'gabriel.mesa@email.com', 'gabpass', 'cliente');
+
+-- Estado
+INSERT INTO estado (id, nombre) VALUES (0, 'Pendiente');
+INSERT INTO estado (id, nombre) VALUES (1, 'Aceptado');
+INSERT INTO estado (id, nombre) VALUES (2, 'Rechazado');
+
+-- Campus
+INSERT INTO campus (id, nombre) VALUES (seq_campus.NEXTVAL, 'UACH Campus I');
+INSERT INTO campus (id, nombre) VALUES (seq_campus.NEXTVAL, 'Campus Uach II');
+
+-- Modalidad
+INSERT INTO modalidad (id, nombre) VALUES (seq_modalidad.NEXTVAL, 'Presencial');
+INSERT INTO modalidad (id, nombre) VALUES (seq_modalidad.NEXTVAL, 'En línea');
+
+-- Carreras
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero Aeroespacial', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero en Ciencias de la Computación', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero Civil', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero de Software', 
+        (SELECT id FROM modalidad WHERE nombre = 'En línea'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero en Minas y Metalurgista', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero en Sistemas Computacionales en Hardware', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero en Sistemas Topográficos', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero en Tecnología de Procesos', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero Físico', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero Geólogo', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+INSERT INTO carreras (id, nombre, modalidad_id) 
+VALUES (seq_carreras.NEXTVAL, 'Ingeniero Matemático', 
+        (SELECT id FROM modalidad WHERE nombre = 'Presencial'));
+
+-- Direcciones
+INSERT INTO direcciones (id, calle, numero, colonia, ciudad, estado)
+VALUES (seq_direcciones.NEXTVAL, 'Calle San Felipe', '1900', 'Centro', 'Chihuahua', 'Chihuahua');
+INSERT INTO direcciones (id, calle, numero, colonia, ciudad, estado)
+VALUES (seq_direcciones.NEXTVAL, 'Escorza', '900', 'Centro', 'Chihuahua', 'Chihuahua');
+INSERT INTO direcciones (id, calle, numero, colonia, ciudad, estado)
+VALUES (seq_direcciones.NEXTVAL, 'Av. Tecnológico', '901', 'San Jorge', 'Chihuahua', 'Chihuahua');
+INSERT INTO direcciones (id, calle, numero, colonia, ciudad, estado)
+VALUES (seq_direcciones.NEXTVAL, 'Av. Teófilo Borunda', '2702', 'Colonia Santo Niño', 'Chihuahua', 'Chihuahua');
+
+-- Instituciones
+INSERT INTO instituciones (id, nombre, departamento, direccion_id, telefono, celular, zona)
+VALUES (seq_instituciones.NEXTVAL, 'Hospital Central del Estado', 'Salud Pública', 
+        seq_direcciones.CURRVAL, '6144321000', '6141234567', 'Centro');
+INSERT INTO instituciones (id, nombre, departamento, direccion_id, telefono, celular, zona)
+VALUES (seq_instituciones.NEXTVAL, 'Universidad Autónoma de Chihuahua', 'Educación Superior', 
+        seq_direcciones.CURRVAL, '6144391500', '6149876543', 'Centro');
+INSERT INTO instituciones (id, nombre, departamento, direccion_id, telefono, celular, zona)
+VALUES (seq_instituciones.NEXTVAL, 'Sistema DIF Estatal Chihuahua', 'Asistencia Social', 
+        seq_direcciones.CURRVAL, '6144293300', '6145551234', 'Norte');
+INSERT INTO instituciones (id, nombre, departamento, direccion_id, telefono, celular, zona)
+VALUES (seq_instituciones.NEXTVAL, 'Museo Semilla Chihuahua', 'Cultura y Educación', 
+        seq_direcciones.CURRVAL, '6144144800', '6147654321', 'Centro');
