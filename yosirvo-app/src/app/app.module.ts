@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StudentDashboardComponent } from './components/students/student-dashboard/student-dashboard.component';
@@ -12,6 +11,8 @@ import { ReviewApplicationsComponent } from './components/admin/review-applicati
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/students/profile/profile.component';
 import { AdminProfileComponent } from './components/admin/admin-profile/admin-profile.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TestingComponent } from './components/testing/testing.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +24,14 @@ import { AdminProfileComponent } from './components/admin/admin-profile/admin-pr
     AdminDashboardComponent,
     ReviewApplicationsComponent,
     ProfileComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    TestingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule  
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration(withEventReplay())

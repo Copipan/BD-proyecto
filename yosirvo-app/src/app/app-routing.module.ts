@@ -8,6 +8,7 @@ import { ApplyFormComponent } from './components/students/apply-form/apply-form.
 import { StudentDashboardComponent } from './components/students/student-dashboard/student-dashboard.component';
 import { ProfileComponent } from './components/students/profile/profile.component';
 import { AdminProfileComponent } from './components/admin/admin-profile/admin-profile.component';
+import { TestingComponent } from './components/testing/testing.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'admin-profile', component: AdminProfileComponent },
     ]
   },
+  { path: 'testing', component: TestingComponent }
   
 ];
 
