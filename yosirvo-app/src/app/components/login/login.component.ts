@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -13,30 +14,28 @@ export class LoginComponent {
   username = '';
   password = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   login() {
-    const loginData = {
-      username: this.username,
-      password: this.password
-    };
+    this.authService.login(this.username, this.password).subscribe({
+      next: () => {
+        const role = this.authService.getRole();
 
-    this.http.post<any>('http://localhost:8000/login', loginData)
-      .subscribe({
-        next: (response) => {
-          console.log('Login success:', response);
-
-          if (response.role === 'admin') {
-            this.router.navigate(['/admin-dashboard']);
-          } else if (response.role === 'student') {
-            this.router.navigate(['/student-dashboard']);
-          } else {
-            alert('Unknown role: ' + response.role);
-          }
-        },
-        error: (err) => {
-          alert('Login failed: ' + err.error.detail);
+        if (role === 'admin') {
+          this.router.navigate(['/admin-dashboard']);
+        } else if (role === 'student') {
+          this.router.navigate(['/student-dashboard']);
+        } else {
+          alert('Rol desconocido: ' + role);
         }
-      });
+      },
+      error: (err) => {
+        alert('Inicio de sesión fallido: ' + err.error.detail);
+      }
+    });
   }
 }

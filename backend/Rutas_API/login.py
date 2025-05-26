@@ -13,16 +13,17 @@ class LoginData(BaseModel):
 def login(data: LoginData):
     cursor = connection.cursor()
 
-    query = "SELECT username, user_type FROM users WHERE username = :username AND password = :password"
+    query = "SELECT id, username, user_type FROM users WHERE username = :username AND password = :password"
     cursor.execute(query, {"username": data.username, "password": data.password})
     user = cursor.fetchone()
 
     if user:
-        username, role = user
+        user_id, username, role = user
         return {
             "message": "Inicio de sesión correcto",
             "username": username,
-            "role": role  
+            "role": role,
+            "user_id": user_id
         }
     else:
         raise HTTPException(status_code=401, detail="Correo electrónico o contraseña inválido")
