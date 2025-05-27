@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-review-applications',
@@ -6,29 +7,47 @@ import { Component } from '@angular/core';
   templateUrl: './review-applications.component.html',
   styleUrl: './review-applications.component.css'
 })
+
 export class ReviewApplicationsComponent {
   searchQuery = '';
 
-  applications = [
-    {
-      name: 'Alice Smith',
-      email: 'alice@example.com',
-      date: new Date('2024-06-01'),
-      status: 'En proceso',
-    },
-    {
-      name: 'Bob Johnson',
-      email: 'bob@example.com',
-      date: new Date('2024-06-03'),
-      status: 'Aprovada',
-    },
-    {
-      name: 'Charlie Lee',
-      email: 'charlie@example.com',
-      date: new Date('2024-06-05'),
-      status: 'Rechazada',
-    },
-  ];
+  applications: any[] = [];
+  selectedApplication: any = null;
+  progreso: any = null;
+
+  constructor(private http: HttpClient) {
+    this.http.get<any[]>('http://localhost:8000/progreso/solicitudes').subscribe({
+      next: (data) => {
+        this.applications = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener solicitudes:', err);
+      }
+    });
+  }
+
+  viewApplication(application: any) {
+    this.selectedApplication = application
+
+    // Aquí iría el ID real del progreso (deberías tenerlo en cada solicitud real)
+
+    this.http.get(`http://localhost:8000/progreso/por-usuario/${this.selectedApplication.student_id}`).subscribe({
+      next: (data) => {
+        this.progreso = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener progreso:', err);
+      }
+    });
+  }
+
+  guardarProgreso() {
+    
+    this.http.put(`http://localhost:8000/progreso/editar/${this.selectedApplication.student_id}`, this.progreso).subscribe({
+      next: () => alert('Progreso actualizado'),
+      error: (err) => console.error('Error al actualizar progreso:', err)
+    });
+  }
 
   filteredApplications() {
     if (!this.searchQuery) return this.applications;

@@ -7,6 +7,9 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './admin-profile.component.html',
   styleUrl: './admin-profile.component.css'
 })
+
+
+
 export class AdminProfileComponent {
   nombreCompleto = '';
   facultad = '';

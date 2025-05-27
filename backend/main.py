@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from Rutas_API import alumnos, login, user_profile
+from Rutas_API import alumnos, login, user_profile, socialserviceprogress
 from fastapi.middleware.cors import CORSMiddleware
 from BaseDeDatos import get_connection
 
@@ -8,6 +8,7 @@ app = FastAPI()
 app.include_router(alumnos.router)
 app.include_router(login.router)
 app.include_router(user_profile.router)
+app.include_router(socialserviceprogress.router)
 
 # Allow requests from your Angular app (important!)
 app.add_middleware(

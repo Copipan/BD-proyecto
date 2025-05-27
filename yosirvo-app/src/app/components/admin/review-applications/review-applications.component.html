@@ -20,20 +20,20 @@
             </thead>
             <tbody>
                 <tr *ngFor="let application of filteredApplications()">
-                    <td>{{ application.name }}</td>
+                    <td>{{ application.nombre }}</td>
                     <td>{{ application.email }}</td>
-                    <td>{{ application.date | date: 'shortDate' }}</td>
+                    <td>{{ application.updated_at | date: 'shortDate' }}</td>
                     <td>
                     <span class="badge" [ngClass]="{
-                        'bg-success': application.status === 'Aprovada',
+                        'bg-success': application.status === 'Aprobado',
                         'bg-warning': application.status === 'En proceso',
-                        'bg-danger': application.status === 'Rechazada'
+                        'bg-danger': application.status === 'Rechazado'
                     }">
                             {{ application.status }}
                         </span>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-primary">
+                        <button class="btn btn-sm btn-primary" (click)="viewApplication(application)">
                             View
                         </button>
                     </td>
@@ -43,5 +43,29 @@
                 </tr>
             </tbody>
         </table>
+        <div *ngIf="selectedApplication && progreso" class="card mt-4">
+            <div class="card-header bg-secondary text-white">
+                <h5>Editar progreso para {{ selectedApplication.nombre }}</h5>
+            </div>
+            <div class="card-body">
+                <label>Papelería entregada</label>
+                    <select class="form-control mb-3" [(ngModel)]="progreso.papeleria_entregada">
+                    <option value="Y">Sí</option>
+                    <option value="N">No</option>
+                    </select>
+
+                    <label>Reportes entregados</label>
+                    <select class="form-control mb-3" [(ngModel)]="progreso.reportes_entregados">
+                    <option value="Y">Sí</option>
+                    <option value="N">No</option>
+                    </select>
+
+                    <label>Horas completadas</label>
+                    <input type="number" [(ngModel)]="progreso.horas_completadas" class="form-control mb-3">
+
+                <button class="btn btn-success" (click)="guardarProgreso()">Guardar cambios</button>
+                <button class="btn btn-outline-secondary ms-2" (click)="selectedApplication = null">Cancelar</button>
+            </div>
+        </div>
     </div>
 </div>
