@@ -23,6 +23,8 @@ export class AuthService {
         this.userId = response.user_id;
         this.role = response.role;
         this.isLoggedInSubject.next(true);
+        sessionStorage.setItem('user_id', response.user_id);
+        sessionStorage.setItem('role', response.role);
       })
     );
   }
