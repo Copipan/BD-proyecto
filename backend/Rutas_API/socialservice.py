@@ -219,3 +219,88 @@ def submit_application(user_id: int, application: SocialServiceApplication):
             cursor.close()
         if conn:
             conn.close()
+
+@router.get("/full-application/{student_id}")
+def get_full_application(student_id: int):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        # Get student info
+        student_query = """
+        SELECT 
+            s.student_id, s.email, s.cellphone, s.house_phone,
+            c.name as carrera,
+            up.apellido_paterno, up.apellido_materno, up.nombres
+        FROM Students s
+        JOIN Career c ON s.career_id = c.id
+        JOIN UserProfile up ON s.user_id = up.user_id
+        WHERE s.id = :student_id
+        """
+        cursor.execute(student_query, {"student_id": student_id})
+        student = cursor.fetchone()
+        
+        if not student:
+            raise HTTPException(status_code=404, detail="Estudiante no encontrado")
+            
+        # Get application
+        app_query = "SELECT * FROM SocialServiceApplication WHERE student_id = :student_id"
+        cursor.execute(app_query, {"student_id": student_id})
+        columns = [col[0] for col in cursor.description]
+        application = cursor.fetchone()
+        
+        if not application:
+            raise HTTPException(status_code=404, detail="Solicitud no encontrada")
+            
+        # Convert to dict
+        application_dict = dict(zip(columns, application))
+        
+        cursor.close()
+        conn.close()
+        
+        return {
+            "studentInfo": {
+                "student_id": student[0],
+                "email": student[1],
+                "cellphone": student[2],
+                "house_phone": student[3],
+                "carrera": student[4],
+                "apellido_paterno": student[5],
+                "apellido_materno": student[6],
+                "nombres": student[7]
+            },
+            "application": application_dict
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.put("/update-status/{student_id}")
+def update_application_status(student_id: int, status_data: dict):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        new_status = status_data.get("status")
+        if new_status not in ["pending", "accepted", "rejected"]:
+            raise HTTPException(status_code=400, detail="Estado inválido")
+        
+        query = """
+        UPDATE SocialServiceApplication 
+        SET status = :status 
+        WHERE student_id = :student_id
+        """
+        cursor.execute(query, {"status": new_status, "student_id": student_id})
+        conn.commit()
+        
+        return {"message": "Estado actualizado correctamente"}
+        
+    except Exception as e:
+        if conn:
+            conn.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()

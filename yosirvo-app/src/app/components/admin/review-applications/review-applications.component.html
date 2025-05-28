@@ -36,6 +36,9 @@
                         <button class="btn btn-sm btn-primary" (click)="viewApplication(application)">
                             View
                         </button>
+                        <a class="btn btn-sm btn-primary" [routerLink]="['/application-detail', application.student_id]">
+                            Ver Detalle
+                        </a>
                     </td>
                 </tr>
                 <tr *ngIf="filteredApplications().length === 0">

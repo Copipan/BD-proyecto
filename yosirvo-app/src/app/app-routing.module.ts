@@ -9,6 +9,7 @@ import { StudentDashboardComponent } from './components/students/student-dashboa
 import { ProfileComponent } from './components/students/profile/profile.component';
 import { AdminProfileComponent } from './components/admin/admin-profile/admin-profile.component';
 import { TestingComponent } from './components/testing/testing.component';
+import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'admin-profile', component: AdminProfileComponent },
     ]
   },
+  { path: 'application-detail/:id', component: ApplicationDetailComponent },
   { path: 'testing', component: TestingComponent }
   
 ];

@@ -1,0 +1,208 @@
+<!-- application-detail.component.html -->
+<div class="container">
+    <h2>Detalle de solicitud de servicio social</h2>
+
+    <div *ngIf="isLoading" class="text-center my-5">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoading && application" class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h4>Estado actual:
+                <span class="badge" [ngClass]="{
+                    'bg-warning': application.status === 'pending',
+                    'bg-success': application.status === 'accepted',
+                    'bg-danger': application.status === 'rejected'
+                }">
+                    {{ application.status | titlecase }}
+                </span>
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <h5>Datos personales</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Apellido paterno:</label>
+                    <p class="form-control-plaintext">{{ studentInfo.apellido_paterno }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Apellido materno:</label>
+                    <p class="form-control-plaintext">{{ studentInfo.apellido_materno }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Nombre(s):</label>
+                    <p class="form-control-plaintext">{{ studentInfo.nombres }}</p>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Fecha de nacimiento:</label>
+                    <p class="form-control-plaintext">{{ application.fecha_nacimiento | date }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Lugar de nacimiento:</label>
+                    <p class="form-control-plaintext">{{ application.lugar_nacimiento }}</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Sexo:</label>
+                    <p class="form-control-plaintext">{{ application.sexo | titlecase }}</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Edad:</label>
+                    <p class="form-control-plaintext">{{ application.edad }}</p>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Estado civil:</label>
+                    <p class="form-control-plaintext">{{ application.estado_civil | titlecase }}</p>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Dirección</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Calle:</label>
+                    <p class="form-control-plaintext">{{ application.calle }}</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Número:</label>
+                    <p class="form-control-plaintext">{{ application.numero }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Colonia:</label>
+                    <p class="form-control-plaintext">{{ application.colonia }}</p>
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Ciudad:</label>
+                    <p class="form-control-plaintext">{{ application.ciudad }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Estado:</label>
+                    <p class="form-control-plaintext">{{ application.estado }}</p>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Contacto</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Teléfono:</label>
+                    <p class="form-control-plaintext">{{ application.telefono }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Celular:</label>
+                    <p class="form-control-plaintext">{{ application.celular }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Correo electrónico:</label>
+                    <p class="form-control-plaintext">{{ application.correo }}</p>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Datos académicos</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Carrera:</label>
+                    <p class="form-control-plaintext">{{ application.carrera }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Matrícula:</label>
+                    <p class="form-control-plaintext">{{ application.matricula }}</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Semestre:</label>
+                    <p class="form-control-plaintext">{{ application.semestre }}</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Materias cursadas:</label>
+                    <p class="form-control-plaintext">{{ application.porcentaje_materias }}</p>
+                </div>
+            </div>
+
+            <h5 class="mt-4">Lugar de asignación</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Institución:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_nombre }}</p>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Departamento/Unidad:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_departamento }}</p>
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Calle:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_calle }}</p>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Número:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_numero }}</p>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Colonia:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_colonia }}</p>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Ciudad:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_ciudad }}</p>
+                </div>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Estado:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_estado }}</p>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Teléfono:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_telefono }}</p>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Celular:</label>
+                    <p class="form-control-plaintext">{{ application.institucion_celular }}</p>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Zona:</label>
+                    <p class="form-control-plaintext">{{ application.zona | titlecase }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Horario:</label>
+                    <p class="form-control-plaintext">{{ application.horario }}</p>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Modalidad:</label>
+                    <p class="form-control-plaintext">{{ application.modalidad | titlecase }}</p>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Plática de sensibilización:</label>
+                    <p class="form-control-plaintext">{{ application.platica_sensibilizacion === 'si' ? 'Sí' : 'No' }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4" *ngIf="isAdmin">
+                <button class="btn btn-success me-2" (click)="updateStatus('accepted')"
+                    [disabled]="application.status === 'accepted'">
+                    Aprobar
+                </button>
+                <button class="btn btn-danger" (click)="updateStatus('rejected')"
+                    [disabled]="application.status === 'rejected'">
+                    Rechazar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

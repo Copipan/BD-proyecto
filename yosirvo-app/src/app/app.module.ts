@@ -14,6 +14,7 @@ import { AdminProfileComponent } from './components/admin/admin-profile/admin-pr
 import { HttpClientModule } from '@angular/common/http';
 import { TestingComponent } from './components/testing/testing.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReviewApplicationsComponent,
     ProfileComponent,
     AdminProfileComponent,
-    TestingComponent
+    TestingComponent,
+    ApplicationDetailComponent
   ],
   imports: [
     BrowserModule,
