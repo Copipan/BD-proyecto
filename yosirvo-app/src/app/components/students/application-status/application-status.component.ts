@@ -19,18 +19,19 @@ export class ApplicationStatusComponent implements OnInit {
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   ngOnInit() {
-    this.auth.getProfile().subscribe(user => {
-      const usuarioId = user.id;
-      this.http.get<any>(`http://localhost:8000/estudiante-id/${usuarioId}`).subscribe(result => {
-        const studentId = result.student_id;
-        this.cargarProgreso(studentId);
-      });
-    });
+    const userId = Number(sessionStorage.getItem('user_id'));
+    const role = sessionStorage.getItem('role');
+
+  if (!userId || !role) {
+    console.error("No hay sesión activa");
+    return;
   }
 
+  this.cargarProgreso(userId);
+  }
 
   cargarProgreso(studentId: number) {
-    this.http.get<any>(`http://localhost:8000/progreso/${studentId}`).subscribe(data => {
+    this.http.get<any>(`http://localhost:8000/progreso/por-usuario/${studentId}`).subscribe(data => {
       this.entregaDocumentos = data.papeleria_entregada === 'Y' ? 100 : 0;
       this.entregaReportes = data.reportes_entregados === 'Y' ? 100 : 0;
       this.horasTrabajadas = Math.min((data.horas_completadas / 400) * 100, 100);

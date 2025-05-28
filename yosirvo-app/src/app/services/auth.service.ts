@@ -15,7 +15,16 @@ export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const storedId = sessionStorage.getItem('user_id');
+    const storedRole = sessionStorage.getItem('role');
+
+    if (storedId && storedRole) {
+      this.userId = Number(storedId);
+      this.role = storedRole;
+      this.isLoggedInSubject.next(true);
+    }
+  }
 
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
@@ -23,6 +32,8 @@ export class AuthService {
         this.userId = response.user_id;
         this.role = response.role;
         this.isLoggedInSubject.next(true);
+        sessionStorage.setItem('user_id', response.user_id);
+        sessionStorage.setItem('role', response.role);
       })
     );
   }
