@@ -74,16 +74,3 @@ def get_progreso_por_usuario(usuario_id: int):
         }
 
     return {"error": "No se encontró progreso para este usuario"}
-
-@router.get("/estudiante-id/{usuario_id}")
-def get_student_id(usuario_id: int):
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT id FROM Students WHERE id = :1", [usuario_id])
-    row = cursor.fetchone()
-    cursor.close()
-    conn.close()
-
-    if row:
-        return {"student_id": row[0]}
-    return {"error": "No se encontró student_id"}
