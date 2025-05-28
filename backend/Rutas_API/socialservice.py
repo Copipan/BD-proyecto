@@ -156,6 +156,9 @@ def submit_application(user_id: int, application: SocialServiceApplication):
         app_data["student_id"] = student_id
         
         print("Parameters being sent:", app_data)  # Debug output
+
+        # Iniciar transacción
+        conn.autocommit = False
         
         query = """
         INSERT INTO SocialServiceApplication (
@@ -201,9 +204,19 @@ def submit_application(user_id: int, application: SocialServiceApplication):
         """
         
         cursor.execute(query, app_data)
+
+        # 2. Insertar en tabla secundaria con valores por defecto
+        tracking_query = """
+        INSERT INTO SocialServiceProgress 
+        (student_id, papeleria_entregada, reportes_entregados, horas_completadas, updated_at)
+        VALUES (:student_id, 'N', 'N', 0, SYSDATE)
+        """
+        cursor.execute(tracking_query, {"student_id": student_id})
+        
+        # Confirmar transacción
         conn.commit()
         
-        return {"message": "Registro enviado con éxito"}
+        return {"message": "Registro enviado con éxito y seguimiento creado"}
         
     except Exception as e:
         print("Detailed error:", str(e))
