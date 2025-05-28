@@ -1,215 +1,416 @@
 <div class="container">
     <h2>Registro para realizar el servicio social</h2>
 
-    <h5>Datos personales</h5>
-    <div class="row g-3">
-        <div class="col-md-4">
-            <div class="mb-3">
-                <label for="apellido-paterno" class="form-label">Apellido paterno:</label>
-                <input type="text" class="form-control" id="apellido-paterno" placeholder="Apellido paterno">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="mb-3">
-                <label for="apellido-materno" class="form-label">Apellido materno:</label>
-                <input type="text" class="form-control" id="apellido-materno" placeholder="Apellido materno">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="mb-3">
-                <label for="nombres" class="form-label">Nombre(s):</label>
-                <input type="text" class="form-control" id="nombres" placeholder="Nombre(s)">
-            </div>
+    <div *ngIf="isLoading" class="text-center my-5">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 
-    <div class="row g-3">
-        <div class="col-md-6">
-            <div class="mb-2">
-                <label for="fecha-nacimiento" class="form-label">Fecha de nacimiento:</label>
-                <input type="date" class="form-control" id="fecha-nacimiento">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="mb-2">
-                <label for="lugar-nacimiento" class="form-label">Lugar de nacimiento:</label>
-                <input type="text" class="form-control" id="lugar-nacimiento" placeholder="Ciudad, Estado">
-            </div>
-        </div>
+    <div *ngIf="hasExistingApplication" class="alert alert-info">
+        Ya has enviado una solicitud de servicio social. No puedes enviar otra.
     </div>
 
-    <div class="row g-3 align-items-end">
-        <div class="col-md-4">
-            <label class="form-label d-block">Sexo:</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
-                <label class="form-check-label" for="female">Femenino</label>
+    <form *ngIf="!isLoading && !hasExistingApplication" [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+        <h5>Datos personales</h5>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="apellido-paterno" class="form-label">Apellido paterno:</label>
+                    <input type="text" class="form-control" id="apellido-paterno" 
+                           formControlName="apellido_paterno" readonly>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
-                <label class="form-check-label" for="male">Masculino</label>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="apellido-materno" class="form-label">Apellido materno:</label>
+                    <input type="text" class="form-control" id="apellido-materno" 
+                           formControlName="apellido_materno" readonly>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="nombres" class="form-label">Nombre(s):</label>
+                    <input type="text" class="form-control" id="nombres" 
+                           formControlName="nombres" readonly>
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <label for="edad" class="form-label">Edad:</label>
-            <input type="text" class="form-control" id="edad" placeholder="Edad">
-        </div>
-        <div class="col-md-4">
-            <label for="estado-civil" class="form-label">Estado civil:</label>
-            <select class="form-select" id="estado-civil" required>
-                <option value="">Selecciona...</option>
-                <option value="soltero">Soltero</option>
-                <option value="casado">Casado</option>
-                <option value="viudo">Viudo</option>
-                <option value="divorciado">Divorciado</option>
-                <option value="union-libre">Unión libre</option>
-            </select>
-        </div>
-    </div>
 
-    <div class="row g-2">
-        <div class="col">
-            <label for="calle" class="form-label">Calle:</label>
-            <input type="text" class="form-control" id="calle" placeholder="Calle">
-        </div>
-        <div class="col-md-1">
-            <label for="numero" class="form-label">Número:</label>
-            <input type="text" class="form-control" id="numero" placeholder="No.">
-        </div>
-        <div class="col">
-            <label for="colonia" class="form-label">Colonia:</label>
-            <input type="text" class="form-control" id="colonia" placeholder="Colonia">
-        </div>
-        <div class="col">
-            <label for="ciudad" class="form-label">Ciudad:</label>
-            <input type="text" class="form-control" id="ciudad" placeholder="Ciudad">
-        </div>
-        <div class="col">
-            <label for="estado" class="form-label">Estado:</label>
-            <input type="text" class="form-control" id="estado" placeholder="Estado">
-        </div>
-    </div>
-
-    <div class="row g-2">
-        <div class="col-md-4">
-            <label for="telefono" class="form-label">Teléfono:</label>
-            <input type="text" class="form-control" id="telefono" placeholder="Teléfono">
-        </div>
-        <div class="col-md-4">
-            <label for="celular" class="form-label">Celular:</label>
-            <input type="text" class="form-control" id="celular" placeholder="Celular">
-        </div>
-        <div class="col-md-4">
-            <label for="correo" class="form-label">Correo electrónico:</label>
-            <input type="email" class="form-control" id="correo" placeholder="Correo electrónico">
-        </div>
-    </div>
-
-    <h5 class="mt-4">Datos académicos</h5>
-    <div class="row g-2">
-        <div class="col">
-            <label for="carrera" class="form-label">Carrera:</label>
-            <input type="text" class="form-control" id="carrera" placeholder="Cambiar cuando haya base de datos">
-        </div>
-        <div class="col">
-            <label for="matricula" class="form-label">Matrícula:</label>
-            <input type="text" class="form-control" id="matricula" placeholder="Matrícula">
-        </div>
-        <div class="col">
-            <label for="semestre" class="form-label">Semestre:</label>
-            <input type="text" class="form-control" id="semestre" placeholder="Semestre">
-        </div>
-        <div class="col">
-            <label for="porcentaje" class="form-label">Materias cursadas:</label>
-            <input type="text" class="form-control" id="porcentaje" placeholder="Porcentaje de materias cursados">
-        </div>
-    </div>
-
-    <h5 class="mt-4">Lugar de asignación</h5>
-    <div class="row g-2">
-        <div class="col">
-            <label for="institucion" class="form-label">Nombre de la institución:</label>
-            <input type="text" class="form-control" id="institucion" placeholder="Nombre de la institución">
-        </div>
-    </div>
-    <div class="row g-2">
-        <div class="col">
-            <label for="departamento" class="form-label">Departamento/Unidad:</label>
-            <input type="text" class="form-control" id="departamento" placeholder="Departamento/Unidad">
-        </div>
-    </div>
-    <div class="row g-2">
-        <div class="col">
-            <label for="calle-institucion" class="form-label">Calle:</label>
-            <input type="text" class="form-control" id="calle-institucion" placeholder="Calle">
-        </div>
-        <div class="col-md-1">
-            <label for="numero-institucion" class="form-label">Número:</label>
-            <input type="text" class="form-control" id="numero-institucion" placeholder="No.">
-        </div>
-        <div class="col">
-            <label for="colonia-institucion" class="form-label">Colonia:</label>
-            <input type="text" class="form-control" id="colonia-institucion" placeholder="Colonia">
-        </div>
-        <div class="col">
-            <label for="ciudad-institucion" class="form-label">Ciudad:</label>
-            <input type="text" class="form-control" id="ciudad-institucion" placeholder="Ciudad">
-        </div>
-        <div class="col">
-            <label for="estado-institucion" class="form-label">Estado:</label>
-            <input type="text" class="form-control" id="estado-institucion" placeholder="Estado">
-        </div>
-    </div>
-    <div class="row g-2">
-        <div class="col">
-            <label for="telefono-institucion" class="form-label">Teléfono:</label>
-            <input type="text" class="form-control" id="telefono-institucion" placeholder="Teléfono">
-        </div>
-        <div class="col">
-            <label for="celular-institucion" class="form-label">Celular:</label>
-            <input type="text" class="form-control" id="celular-institucion" placeholder="Celular">
-        </div>
-    </div>
-    <div class="row g-2">
-        <div class="col-md-4">
-            <label class="form-label d-block">Zona:</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="zona" id="zona-urbana" value="urbana" required>
-                <label class="form-check-label" for="zona-urbana">Urbana</label>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="mb-2">
+                    <label for="fecha-nacimiento" class="form-label">Fecha de nacimiento:</label>
+                    <input type="date" class="form-control" id="fecha-nacimiento" 
+                           formControlName="fecha_nacimiento">
+                    <div *ngIf="applicationForm.get('fecha_nacimiento')?.invalid && 
+                               (applicationForm.get('fecha_nacimiento')?.dirty || 
+                                applicationForm.get('fecha_nacimiento')?.touched)"
+                         class="text-danger">
+                        Fecha de nacimiento es requerida
+                    </div>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="zona" id="zona-rural" value="rural" required>
-                <label class="form-check-label" for="zona-rural">Rural</label>
+            <div class="col-md-6">
+                <div class="mb-2">
+                    <label for="lugar-nacimiento" class="form-label">Lugar de nacimiento:</label>
+                    <input type="text" class="form-control" id="lugar-nacimiento" 
+                           formControlName="lugar_nacimiento" placeholder="Ciudad, Estado">
+                    <div *ngIf="applicationForm.get('lugar_nacimiento')?.invalid && 
+                               (applicationForm.get('lugar_nacimiento')?.dirty || 
+                                applicationForm.get('lugar_nacimiento')?.touched)"
+                         class="text-danger">
+                        Lugar de nacimiento es requerido
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <label for="horario" class="form-label">Horario:</label>
-            <input type="text" class="form-control" id="horario" placeholder="Horario">
-        </div>
-        <div class="col-md-4">
-            <label for="modalidad" class="form-label">Modalidad:</label>
-            <select class="form-select" id="modalidad" required>
-                <option value="">Selecciona...</option>
-                <option value="individual">Individual</option>
-                <option value="brigada">Brigada</option>
-                <option value="vacaciones">Periodos vacacionales</option>
-                <option value="proyecto">Proyecto especial</option>
-            </select>
-        </div>
-    </div>
 
-    <div class="row g-3 mt-3">
-        <div class="col-md-6">
-            <label class="form-label d-block">Asistió a la plática de sensibilización:</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="platica" id="platica-si" value="si" required>
-                <label class="form-check-label" for="platica-si">Sí</label>
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label d-block">Sexo:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female" 
+                           value="female" formControlName="sexo" required>
+                    <label class="form-check-label" for="female">Femenino</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" 
+                           value="male" formControlName="sexo" required>
+                    <label class="form-check-label" for="male">Masculino</label>
+                </div>
+                <div *ngIf="applicationForm.get('sexo')?.invalid && 
+                           (applicationForm.get('sexo')?.dirty || 
+                            applicationForm.get('sexo')?.touched)"
+                     class="text-danger">
+                    Sexo es requerido
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="platica" id="platica-no" value="no" required>
-                <label class="form-check-label" for="platica-no">No</label>
+            <div class="col-md-4">
+                <label for="edad" class="form-label">Edad:</label>
+                <input type="number" class="form-control" id="edad" 
+                       formControlName="edad" placeholder="Edad">
+                <div *ngIf="applicationForm.get('edad')?.invalid && 
+                           (applicationForm.get('edad')?.dirty || 
+                            applicationForm.get('edad')?.touched)"
+                     class="text-danger">
+                    Edad debe ser al menos 18 años
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="estado-civil" class="form-label">Estado civil:</label>
+                <select class="form-select" id="estado-civil" formControlName="estado_civil" required>
+                    <option value="">Selecciona...</option>
+                    <option value="soltero">Soltero</option>
+                    <option value="casado">Casado</option>
+                    <option value="viudo">Viudo</option>
+                    <option value="divorciado">Divorciado</option>
+                    <option value="union-libre">Unión libre</option>
+                </select>
+                <div *ngIf="applicationForm.get('estado_civil')?.invalid && 
+                           (applicationForm.get('estado_civil')?.dirty || 
+                            applicationForm.get('estado_civil')?.touched)"
+                     class="text-danger">
+                    Estado civil es requerido
+                </div>
             </div>
         </div>
-    </div>
-    <button class="btn btn-primary w-100">Enviar y guardar</button>
+
+        <h5 class="mt-4">Dirección</h5>
+        <div class="row g-2">
+            <div class="col">
+                <label for="calle" class="form-label">Calle:</label>
+                <input type="text" class="form-control" id="calle" 
+                       formControlName="calle" placeholder="Calle">
+                <div *ngIf="applicationForm.get('calle')?.invalid && 
+                           (applicationForm.get('calle')?.dirty || 
+                            applicationForm.get('calle')?.touched)"
+                     class="text-danger">
+                    Calle es requerida
+                </div>
+            </div>
+            <div class="col-md-1">
+                <label for="numero" class="form-label">Número:</label>
+                <input type="text" class="form-control" id="numero" 
+                       formControlName="numero" placeholder="No.">
+                <div *ngIf="applicationForm.get('numero')?.invalid && 
+                           (applicationForm.get('numero')?.dirty || 
+                            applicationForm.get('numero')?.touched)"
+                     class="text-danger">
+                    Número es requerido
+                </div>
+            </div>
+            <div class="col">
+                <label for="colonia" class="form-label">Colonia:</label>
+                <input type="text" class="form-control" id="colonia" 
+                       formControlName="colonia" placeholder="Colonia">
+                <div *ngIf="applicationForm.get('colonia')?.invalid && 
+                           (applicationForm.get('colonia')?.dirty || 
+                            applicationForm.get('colonia')?.touched)"
+                     class="text-danger">
+                    Colonia es requerida
+                </div>
+            </div>
+            <div class="col">
+                <label for="ciudad" class="form-label">Ciudad:</label>
+                <input type="text" class="form-control" id="ciudad" 
+                       formControlName="ciudad" placeholder="Ciudad">
+                <div *ngIf="applicationForm.get('ciudad')?.invalid && 
+                           (applicationForm.get('ciudad')?.dirty || 
+                            applicationForm.get('ciudad')?.touched)"
+                     class="text-danger">
+                    Ciudad es requerida
+                </div>
+            </div>
+            <div class="col">
+                <label for="estado" class="form-label">Estado:</label>
+                <input type="text" class="form-control" id="estado" 
+                       formControlName="estado" placeholder="Estado">
+                <div *ngIf="applicationForm.get('estado')?.invalid && 
+                           (applicationForm.get('estado')?.dirty || 
+                            applicationForm.get('estado')?.touched)"
+                     class="text-danger">
+                    Estado es requerido
+                </div>
+            </div>
+        </div>
+
+        <h5 class="mt-4">Contacto</h5>
+        <div class="row g-2">
+            <div class="col-md-4">
+                <label for="telefono" class="form-label">Teléfono:</label>
+                <input type="text" class="form-control" id="telefono" 
+                       formControlName="telefono" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="celular" class="form-label">Celular:</label>
+                <input type="text" class="form-control" id="celular" 
+                       formControlName="celular" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="correo" class="form-label">Correo electrónico:</label>
+                <input type="email" class="form-control" id="correo" 
+                       formControlName="correo" readonly>
+            </div>
+        </div>
+
+        <h5 class="mt-4">Datos académicos</h5>
+        <div class="row g-2">
+            <div class="col">
+                <label for="carrera" class="form-label">Carrera:</label>
+                <input type="text" class="form-control" id="carrera" 
+                       formControlName="carrera" readonly>
+            </div>
+            <div class="col">
+                <label for="matricula" class="form-label">Matrícula:</label>
+                <input type="text" class="form-control" id="matricula" 
+                       formControlName="matricula" readonly>
+            </div>
+            <div class="col">
+                <label for="semestre" class="form-label">Semestre:</label>
+                <input type="number" class="form-control" id="semestre" 
+                       formControlName="semestre" placeholder="Semestre">
+                <div *ngIf="applicationForm.get('semestre')?.invalid && 
+                           (applicationForm.get('semestre')?.dirty || 
+                            applicationForm.get('semestre')?.touched)"
+                     class="text-danger">
+                    Semestre debe ser al menos 1
+                </div>
+            </div>
+            <div class="col">
+                <label for="porcentaje" class="form-label">Materias cursadas:</label>
+                <input type="text" class="form-control" id="porcentaje" 
+                       formControlName="porcentaje_materias" placeholder="Porcentaje de materias cursados">
+                <div *ngIf="applicationForm.get('porcentaje_materias')?.invalid && 
+                           (applicationForm.get('porcentaje_materias')?.dirty || 
+                            applicationForm.get('porcentaje_materias')?.touched)"
+                     class="text-danger">
+                    Porcentaje es requerido
+                </div>
+            </div>
+        </div>
+
+        <h5 class="mt-4">Lugar de asignación</h5>
+        <div class="row g-2">
+            <div class="col">
+                <label for="institucion" class="form-label">Nombre de la institución:</label>
+                <input type="text" class="form-control" id="institucion" 
+                       formControlName="institucion_nombre" placeholder="Nombre de la institución">
+                <div *ngIf="applicationForm.get('institucion_nombre')?.invalid && 
+                           (applicationForm.get('institucion_nombre')?.dirty || 
+                            applicationForm.get('institucion_nombre')?.touched)"
+                     class="text-danger">
+                    Nombre de institución es requerido
+                </div>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col">
+                <label for="departamento" class="form-label">Departamento/Unidad:</label>
+                <input type="text" class="form-control" id="departamento" 
+                       formControlName="institucion_departamento" placeholder="Departamento/Unidad">
+                <div *ngIf="applicationForm.get('institucion_departamento')?.invalid && 
+                           (applicationForm.get('institucion_departamento')?.dirty || 
+                            applicationForm.get('institucion_departamento')?.touched)"
+                     class="text-danger">
+                    Departamento/Unidad es requerido
+                </div>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col">
+                <label for="calle-institucion" class="form-label">Calle:</label>
+                <input type="text" class="form-control" id="calle-institucion" 
+                       formControlName="institucion_calle" placeholder="Calle">
+                <div *ngIf="applicationForm.get('institucion_calle')?.invalid && 
+                           (applicationForm.get('institucion_calle')?.dirty || 
+                            applicationForm.get('institucion_calle')?.touched)"
+                     class="text-danger">
+                    Calle es requerida
+                </div>
+            </div>
+            <div class="col-md-1">
+                <label for="numero-institucion" class="form-label">Número:</label>
+                <input type="text" class="form-control" id="numero-institucion" 
+                       formControlName="institucion_numero" placeholder="No.">
+                <div *ngIf="applicationForm.get('institucion_numero')?.invalid && 
+                           (applicationForm.get('institucion_numero')?.dirty || 
+                            applicationForm.get('institucion_numero')?.touched)"
+                     class="text-danger">
+                    Número es requerido
+                </div>
+            </div>
+            <div class="col">
+                <label for="colonia-institucion" class="form-label">Colonia:</label>
+                <input type="text" class="form-control" id="colonia-institucion" 
+                       formControlName="institucion_colonia" placeholder="Colonia">
+                <div *ngIf="applicationForm.get('institucion_colonia')?.invalid && 
+                           (applicationForm.get('institucion_colonia')?.dirty || 
+                            applicationForm.get('institucion_colonia')?.touched)"
+                     class="text-danger">
+                    Colonia es requerida
+                </div>
+            </div>
+            <div class="col">
+                <label for="ciudad-institucion" class="form-label">Ciudad:</label>
+                <input type="text" class="form-control" id="ciudad-institucion" 
+                       formControlName="institucion_ciudad" placeholder="Ciudad">
+                <div *ngIf="applicationForm.get('institucion_ciudad')?.invalid && 
+                           (applicationForm.get('institucion_ciudad')?.dirty || 
+                            applicationForm.get('institucion_ciudad')?.touched)"
+                     class="text-danger">
+                    Ciudad es requerida
+                </div>
+            </div>
+            <div class="col">
+                <label for="estado-institucion" class="form-label">Estado:</label>
+                <input type="text" class="form-control" id="estado-institucion" 
+                       formControlName="institucion_estado" placeholder="Estado">
+                <div *ngIf="applicationForm.get('institucion_estado')?.invalid && 
+                           (applicationForm.get('institucion_estado')?.dirty || 
+                            applicationForm.get('institucion_estado')?.touched)"
+                     class="text-danger">
+                    Estado es requerido
+                </div>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col">
+                <label for="telefono-institucion" class="form-label">Teléfono:</label>
+                <input type="text" class="form-control" id="telefono-institucion" 
+                       formControlName="institucion_telefono" placeholder="Teléfono">
+                <div *ngIf="applicationForm.get('institucion_telefono')?.invalid && 
+                           (applicationForm.get('institucion_telefono')?.dirty || 
+                            applicationForm.get('institucion_telefono')?.touched)"
+                     class="text-danger">
+                    Teléfono es requerido
+                </div>
+            </div>
+            <div class="col">
+                <label for="celular-institucion" class="form-label">Celular:</label>
+                <input type="text" class="form-control" id="celular-institucion" 
+                       formControlName="institucion_celular" placeholder="Celular">
+                <div *ngIf="applicationForm.get('institucion_celular')?.invalid && 
+                           (applicationForm.get('institucion_celular')?.dirty || 
+                            applicationForm.get('institucion_celular')?.touched)"
+                     class="text-danger">
+                    Celular es requerido
+                </div>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-md-4">
+                <label class="form-label d-block">Zona:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="zona" id="zona-urbana" 
+                           value="urbana" formControlName="zona" required>
+                    <label class="form-check-label" for="zona-urbana">Urbana</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="zona" id="zona-rural" 
+                           value="rural" formControlName="zona" required>
+                    <label class="form-check-label" for="zona-rural">Rural</label>
+                </div>
+                <div *ngIf="applicationForm.get('zona')?.invalid && 
+                           (applicationForm.get('zona')?.dirty || 
+                            applicationForm.get('zona')?.touched)"
+                     class="text-danger">
+                    Zona es requerida
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="horario" class="form-label">Horario:</label>
+                <input type="text" class="form-control" id="horario" 
+                       formControlName="horario" placeholder="Horario">
+                <div *ngIf="applicationForm.get('horario')?.invalid && 
+                           (applicationForm.get('horario')?.dirty || 
+                            applicationForm.get('horario')?.touched)"
+                     class="text-danger">
+                    Horario es requerido
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="modalidad" class="form-label">Modalidad:</label>
+                <select class="form-select" id="modalidad" formControlName="modalidad" required>
+                    <option value="">Selecciona...</option>
+                    <option value="individual">Individual</option>
+                    <option value="brigada">Brigada</option>
+                    <option value="vacaciones">Periodos vacacionales</option>
+                    <option value="proyecto">Proyecto especial</option>
+                </select>
+                <div *ngIf="applicationForm.get('modalidad')?.invalid && 
+                           (applicationForm.get('modalidad')?.dirty || 
+                            applicationForm.get('modalidad')?.touched)"
+                     class="text-danger">
+                    Modalidad es requerida
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <label class="form-label d-block">Asistió a la plática de sensibilización:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="platica" id="platica-si" 
+                           value="si" formControlName="platica_sensibilizacion" required>
+                    <label class="form-check-label" for="platica-si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="platica" id="platica-no" 
+                           value="no" formControlName="platica_sensibilizacion" required>
+                    <label class="form-check-label" for="platica-no">No</label>
+                </div>
+                <div *ngIf="applicationForm.get('platica_sensibilizacion')?.invalid && 
+                           (applicationForm.get('platica_sensibilizacion')?.dirty || 
+                            applicationForm.get('platica_sensibilizacion')?.touched)"
+                     class="text-danger">
+                    Esta información es requerida
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-3" 
+                [disabled]="applicationForm.invalid || hasExistingApplication">
+            Enviar y guardar
+        </button>
+    </form>
 </div>

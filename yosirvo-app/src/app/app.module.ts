@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/students/profile/profile.componen
 import { AdminProfileComponent } from './components/admin/admin-profile/admin-profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TestingComponent } from './components/testing/testing.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TestingComponent } from './components/testing/testing.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(withEventReplay())
