@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth.service';
-
 
 @Component({
   selector: 'app-application-status',
@@ -11,23 +11,28 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ApplicationStatusComponent implements OnInit {
   appStatus: string = 'en-proceso'; 
-
   entregaDocumentos: number = 0;
   entregaReportes: number = 0;
   horasTrabajadas: number = 0;
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const userId = Number(sessionStorage.getItem('user_id'));
     const role = sessionStorage.getItem('role');
 
-  if (!userId || !role) {
-    console.error("No hay sesión activa");
-    return;
-  }
+    if (!userId || !role) {
+      console.error("No hay sesión activa");
+      return;
+    }
 
-  this.cargarProgreso(userId);
+    this.cargarProgreso(userId);
   }
 
   cargarProgreso(studentId: number) {

@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -7,7 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000'; // Update if using a different backend URL
+  private apiUrl = 'http://localhost:8000';
 
   private userId: number | null = null;
   private role: string | null = null;
@@ -15,7 +16,18 @@ export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  private isBrowser: boolean;
+
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  initializeSessionFromStorage(): void {
+    if (!this.isBrowser) return;
+
     const storedId = sessionStorage.getItem('user_id');
     const storedRole = sessionStorage.getItem('role');
 
@@ -32,8 +44,11 @@ export class AuthService {
         this.userId = response.user_id;
         this.role = response.role;
         this.isLoggedInSubject.next(true);
-        sessionStorage.setItem('user_id', response.user_id);
-        sessionStorage.setItem('role', response.role);
+
+        if (this.isBrowser) {
+          sessionStorage.setItem('user_id', response.user_id);
+          sessionStorage.setItem('role', response.role);
+        }
       })
     );
   }
@@ -62,5 +77,10 @@ export class AuthService {
     this.userId = null;
     this.role = null;
     this.isLoggedInSubject.next(false);
+
+    if (this.isBrowser) {
+      sessionStorage.removeItem('user_id');
+      sessionStorage.removeItem('role');
+    }
   }
 }
