@@ -39,7 +39,8 @@ export class ApplicationStatusComponent implements OnInit {
     this.http.get<any>(`http://localhost:8000/progreso/por-usuario/${studentId}`).subscribe(data => {
       this.entregaDocumentos = data.papeleria_entregada === 'Y' ? 100 : 0;
       this.entregaReportes = data.reportes_entregados === 'Y' ? 100 : 0;
-      this.horasTrabajadas = Math.min((data.horas_completadas / 400) * 100, 100);
+      this.horasTrabajadas = Math.min((data.horas_completadas / 400) * 100, 100)
+      this.appStatus = data.status;
     });
   }
 }

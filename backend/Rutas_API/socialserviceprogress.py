@@ -36,10 +36,11 @@ def update_progreso():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT s.student_id, u.nombres || ' ' || u.apellido_paterno as nombre, a.email, s.updated_at
+        SELECT s.student_id, u.nombres || ' ' || u.apellido_paterno as nombre, a.email, s.updated_at as actualizacion, ssa.status, ssa.submitted_at as fecha_solicitud
         FROM socialserviceprogress s
         JOIN userprofile u on s.student_id = u.user_id
         JOIN students a on s.student_id = a.user_id
+        JOIN socialserviceapplication ssa on s.student_id = ssa.student_id
     """)
 
     rows = cursor.fetchall()
@@ -56,9 +57,10 @@ def get_progreso_por_usuario(usuario_id: int):
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT papeleria_entregada, reportes_entregados, horas_completadas, updated_at
-        FROM socialserviceprogress
-        WHERE student_id = :1
+        SELECT ssp.papeleria_entregada, ssp.reportes_entregados, ssp.horas_completadas, ssp.updated_at, ssa.status
+        FROM socialserviceprogress ssp
+        JOIN socialserviceapplication ssa on ssp.student_id = ssa.student_id
+        WHERE ssp.student_id = :1
     """, [usuario_id])
 
     row = cursor.fetchone()
@@ -70,7 +72,8 @@ def get_progreso_por_usuario(usuario_id: int):
             "papeleria_entregada": row[0],
             "reportes_entregados": row[1],
             "horas_completadas": row[2],
-            "updated_at": row[3]
+            "updated_at": row[3],
+            "status": row[4]
         }
 
     return {"error": "No se encontró progreso para este usuario"}

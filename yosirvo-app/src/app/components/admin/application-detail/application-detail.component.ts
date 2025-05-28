@@ -51,6 +51,7 @@ export class ApplicationDetailComponent implements OnInit {
       () => {
         alert('Status updated successfully!');
         this.application.status = newStatus;
+        window.location.reload()
       },
       (error) => {
         console.error('Error updating status:', error);

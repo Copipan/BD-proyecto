@@ -22,22 +22,22 @@
                 <tr *ngFor="let application of filteredApplications()">
                     <td>{{ application.nombre }}</td>
                     <td>{{ application.email }}</td>
-                    <td>{{ application.updated_at | date: 'shortDate' }}</td>
+                    <td>{{ application.fecha_solicitud | date: 'shortDate' }}</td>
                     <td>
                     <span class="badge" [ngClass]="{
-                        'bg-success': application.status === 'Aprobado',
-                        'bg-warning': application.status === 'En proceso',
-                        'bg-danger': application.status === 'Rechazado'
+                        'bg-success': application.status === 'accepted',
+                        'bg-warning': application.status === 'pending',
+                        'bg-danger': application.status === 'rejected'
                     }">
                             {{ application.status }}
                         </span>
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-primary" (click)="viewApplication(application)">
-                            View
+                        <button class="btn btn-sm btn-primary me-2" (click)="viewApplication(application)">
+                            Editar Progreso
                         </button>
                         <a class="btn btn-sm btn-primary" [routerLink]="['/application-detail', application.student_id]">
-                            Ver Detalle
+                            Ver Detalles
                         </a>
                     </td>
                 </tr>

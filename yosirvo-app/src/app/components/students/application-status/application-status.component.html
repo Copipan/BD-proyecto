@@ -1,5 +1,17 @@
 <div class="container mt-5">
-  <label for="app-status" class="form-label">Tu solicitud se encuentra:</label>
+  <div class="d-flex align-items-center mb-3">
+    <label for="app-status" class="form-label me-2 fw-bold text-secondary">
+      Estado de la solicitud:
+    </label>
+    <span class="badge px-3 py-1.5 fs-6" [ngClass]="{
+      'bg-success': appStatus === 'accepted',
+      'bg-warning text-dark': appStatus === 'pending',
+      'bg-danger': appStatus === 'rejected'
+    }">
+      {{ appStatus | titlecase }}
+    </span>
+  </div>
+
 
   <div class="card shadow mt-3">
     <div class="card-header text-white">
