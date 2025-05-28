@@ -101,14 +101,10 @@ def submit_application(user_id: int, application: SocialServiceApplication):
         conn = get_connection()
         cursor = conn.cursor()
         
-        # Get student's internal ID
-        cursor.execute("SELECT id FROM Students WHERE user_id = :user_id", {"user_id": user_id})
-        student = cursor.fetchone()
-        
-        if not student:
+        if not user_id:
             raise HTTPException(status_code=404, detail="Student not found")
             
-        student_id = student[0]
+        student_id = user_id
         
         # Check for existing application
         cursor.execute("SELECT id FROM SocialServiceApplication WHERE student_id = :student_id", {"student_id": student_id})
