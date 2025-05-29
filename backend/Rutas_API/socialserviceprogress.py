@@ -32,7 +32,7 @@ def update_progreso(student_id: int, progreso: ProgresoUpdate):
     return {"message": "Progreso actualizado"}
 
 @router.get("/solicitudes")
-def update_progreso():
+def getAll_solicitudes():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
