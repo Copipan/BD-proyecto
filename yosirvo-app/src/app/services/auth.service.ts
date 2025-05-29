@@ -9,21 +9,20 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8000';
-
   private userId: number | null = null;
   private role: string | null = null;
-
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
-
   private isBrowser: boolean;
 
   constructor(
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object // Elimina la auto-inyección
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+    this.initializeSessionFromStorage(); // Llama directamente aquí
   }
+
 
   initializeSessionFromStorage(): void {
     if (!this.isBrowser) return;
@@ -54,6 +53,11 @@ export class AuthService {
   }
 
   getProfile(): Observable<any> {
+    if ((!this.userId || !this.role) && this.isBrowser) {
+      this.initializeSessionFromStorage(); // Intenta recuperar de sessionStorage
+    }
+
+    // Si aún no hay datos, lanza error
     if (!this.userId || !this.role) {
       throw new Error('User not logged in');
     }
