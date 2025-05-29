@@ -72,7 +72,7 @@ def get_student_info(user_id: int):
         if not student:
             raise HTTPException(status_code=404, detail="Estudiante no encontrado")
             
-        # Check if application already exists
+        # Revisa si ya existe
         query = "SELECT id FROM SocialServiceApplication WHERE student_id = (SELECT id FROM Students WHERE user_id = :user_id)"
         cursor.execute(query, {"user_id": user_id})
         existing_app = cursor.fetchone()

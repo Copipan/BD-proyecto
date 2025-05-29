@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from BaseDeDatos import get_connection
-from pydantic import BaseModel
 
 router = APIRouter()
 connection = get_connection()

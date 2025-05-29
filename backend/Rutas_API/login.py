@@ -26,4 +26,4 @@ def login(data: LoginData):
             "user_id": user_id
         }
     else:
-        raise HTTPException(status_code=401, detail="Correo electrónico o contraseña inválido")
+        raise HTTPException(status_code=401, detail="Nombre de usuario o contraseña inválido")

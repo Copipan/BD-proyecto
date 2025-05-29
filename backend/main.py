@@ -1,28 +1,24 @@
-from fastapi import FastAPI, HTTPException
-from Rutas_API import alumnos, login, user_profile, socialserviceprogress, socialservice
+from fastapi import FastAPI
+from Rutas_API import login, user_profile, socialserviceprogress, socialservice
 from fastapi.middleware.cors import CORSMiddleware
 from BaseDeDatos import get_connection
 
-app = FastAPI()
+app = FastAPI() # Crea la aplicación
 
-app.include_router(alumnos.router)
 app.include_router(login.router)
 app.include_router(user_profile.router)
 app.include_router(socialserviceprogress.router)
 app.include_router(socialservice.router)
 
-# Allow requests from your Angular app (important!)
+# Permite peticiones por parte de la app en angular
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],  # Angular runs here by default
+    allow_origins=["http://localhost:4200"],  # normalmente aquí se inicia la app
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.get("/api/hello")
-def say_hello():
-    return {"message": "Hello from FastAPI!"}
 
 @app.get("/api/db-check")
 def db_check():
@@ -36,6 +32,3 @@ def db_check():
         return {"message": result[0]}
     except Exception as e:
         return {"error": str(e)}
-
-
-
