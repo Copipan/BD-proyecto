@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="text-center my-4 text-primary">Detalle de solicitud de servicio social</h2>
+  <h2 class="text-center my-4 purple-text">Detalle de solicitud de servicio social</h2>
 
   <div *ngIf="isLoading" class="text-center my-5">
     <div class="spinner-border text-primary" role="status">
@@ -8,7 +8,7 @@
   </div>
 
   <div *ngIf="!isLoading && application" class="card shadow-sm mt-4">
-    <div class="card-header bg-primary text-white">
+    <div class="card-header text-white purple">
       <h4 class="mb-0">Estado actual de la solicitud:
         <span class="badge ms-2" [ngClass]="{
           'bg-warning': application.STATUS === 'pending',
