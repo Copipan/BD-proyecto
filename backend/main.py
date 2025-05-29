@@ -3,7 +3,7 @@ from Rutas_API import login, user_profile, socialserviceprogress, socialservice
 from fastapi.middleware.cors import CORSMiddleware
 from BaseDeDatos import get_connection
 
-app = FastAPI() # Crea la aplicación
+app = FastAPI() # Crea la aplicación, es la base donde se va a hacer todo pues funciona como marco de trabajo
 
 app.include_router(login.router)
 app.include_router(user_profile.router)
@@ -16,10 +16,10 @@ app.add_middleware(
     allow_origins=["http://localhost:4200"],  # normalmente aquí se inicia la app
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"], 
 )
 
-
+#Es un Endpoint para revisar si la conexión con la base de datos es correcta
 @app.get("/api/db-check")
 def db_check():
     try:

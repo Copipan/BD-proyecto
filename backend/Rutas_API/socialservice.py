@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 from datetime import date
@@ -55,7 +55,7 @@ def get_student_info(user_id: int):
         conn = get_connection()
         cursor = conn.cursor()
         
-        # Get basic student info
+        # Obtener información básica del alumno
         query = """
         SELECT 
             s.student_id, s.email, s.cellphone, s.house_phone,
@@ -73,7 +73,7 @@ def get_student_info(user_id: int):
             raise HTTPException(status_code=404, detail="Estudiante no encontrado")
             
         # Revisa si ya existe
-        query = "SELECT id FROM SocialServiceApplication WHERE student_id = (SELECT id FROM Students WHERE user_id = :user_id)"
+        query = "SELECT id FROM SocialServiceApplication WHERE student_id = :user_id"
         cursor.execute(query, {"user_id": user_id})
         existing_app = cursor.fetchone()
         
@@ -106,12 +106,12 @@ def submit_application(user_id: int, application: SocialServiceApplication):
             
         student_id = user_id
         
-        # Check for existing application
+        # Revisa si se tiene una solicitud ya enviada
         cursor.execute("SELECT id FROM SocialServiceApplication WHERE student_id = :student_id", {"student_id": student_id})
         if cursor.fetchone():
             raise HTTPException(status_code=400, detail="Application already exists")
         
-        # Prepare all possible parameters with None as default
+        # Prepara las variables como None
         app_data = {
             "fecha_nacimiento": None,
             "lugar_nacimiento": None,
@@ -145,17 +145,17 @@ def submit_application(user_id: int, application: SocialServiceApplication):
             "platica_sensibilizacion": None
         }
         
-        # Update with actual values from the request
+        # Actualiza los datos usando los que recibió como parámetro, en este caso es application:
         app_data.update(application.dict(exclude_unset=True))
         
-        # Handle date conversion
+        # Esto permite trabajar con la información que recibe de tipo fecha
         if app_data["fecha_nacimiento"]:
             app_data["fecha_nacimiento"] = app_data["fecha_nacimiento"].strftime('%Y-%m-%d')
         
-        # Add student_id to parameters
+        # Añade el student_id ya que no venía dentro de application
         app_data["student_id"] = student_id
         
-        print("Parameters being sent:", app_data)  # Debug output
+        print("Parameters being sent:", app_data)  # Para saber los parámetros que se van a enviar, solo se ve en consola
 
         # Iniciar transacción
         conn.autocommit = False
@@ -235,7 +235,7 @@ def get_full_application(student_id: int):
         conn = get_connection()
         cursor = conn.cursor()
         
-        # Get student info
+        # Obtiene información del estudiante
         student_query = """
         SELECT 
             s.student_id, s.email, s.cellphone, s.house_phone,
@@ -252,7 +252,7 @@ def get_full_application(student_id: int):
         if not student:
             raise HTTPException(status_code=404, detail="Estudiante no encontrado")
             
-        # Get application
+        # Obtiene la solicitud y la guarda en application
         app_query = "SELECT * FROM SocialServiceApplication WHERE student_id = :student_id"
         cursor.execute(app_query, {"student_id": student_id})
         columns = [col[0] for col in cursor.description]
@@ -261,7 +261,7 @@ def get_full_application(student_id: int):
         if not application:
             raise HTTPException(status_code=404, detail="Solicitud no encontrada")
             
-        # Convert to dict
+        # Lo convierte a diccionario usando las columnas y los datos que regresó el cursor
         application_dict = dict(zip(columns, application))
         
         cursor.close()
@@ -336,7 +336,7 @@ def delete_application(student_id: int):
         )
         
         # Verificar si se eliminó algún registro
-        if cursor.rowcount == 0:
+        if cursor.rowcount == 0: #-->  devuelve el número de filas afectadas por la última operación SQL ejecutada
             raise HTTPException(
                 status_code=404,
                 detail="No se encontró la solicitud del estudiante"
@@ -347,8 +347,6 @@ def delete_application(student_id: int):
         
         return {"message": "Solicitud eliminada correctamente"}
         
-    except HTTPException:
-        raise  # Re-lanza excepciones HTTP personalizadas
     except Exception as e:
         if conn:
             conn.rollback()
