@@ -7,13 +7,12 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './review-applications.component.html',
   styleUrl: './review-applications.component.css'
 })
-
 export class ReviewApplicationsComponent {
   searchQuery = '';
-
   applications: any[] = [];
   selectedApplication: any = null;
   progreso: any = null;
+  deletingId: number | null = null; // Para controlar qué solicitud se está eliminando
 
   constructor(private http: HttpClient) {
     this.http.get<any[]>('http://localhost:8000/progreso/solicitudes').subscribe({
@@ -24,6 +23,29 @@ export class ReviewApplicationsComponent {
         console.error('Error al obtener solicitudes:', err);
       }
     });
+  }
+
+  // Función para eliminar solicitud
+  eliminarSolicitud(application: any) {
+    if (confirm(`¿Estás seguro de eliminar la solicitud de ${application.nombre}?`)) {
+      this.deletingId = application.student_id; // Marcar esta solicitud como en proceso de eliminación
+      
+      this.http.delete(`http://localhost:8000/social-service/delete-application/${application.student_id}`)
+        .subscribe({
+          next: () => {
+            // Eliminar la solicitud del array local
+            this.applications = this.applications.filter(app => app.student_id !== application.student_id);
+            alert('Solicitud eliminada correctamente');
+          },
+          error: (err) => {
+            console.error('Error al eliminar:', err);
+            alert('Error al eliminar la solicitud');
+          },
+          complete: () => {
+            this.deletingId = null; // Resetear el estado de eliminación
+          }
+        });
+    }
   }
 
   viewApplication(application: any) {
@@ -58,3 +80,4 @@ export class ReviewApplicationsComponent {
     );
   }
 }
+

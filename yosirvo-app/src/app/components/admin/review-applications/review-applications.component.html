@@ -36,8 +36,14 @@
                         <button class="btn btn-sm btn-primary me-2" (click)="viewApplication(application)">
                             Editar Progreso
                         </button>
-                        <a class="btn btn-sm btn-primary" [routerLink]="['/application-detail', application.student_id]">
+                        <a class="btn btn-sm btn-primary me-2" [routerLink]="['/application-detail', application.student_id]">
                             Ver Detalles
+                        </a>
+                        <a class="btn btn-sm btn-danger text-white" 
+                            (click)="eliminarSolicitud(application)"
+                            [class.disabled]="deletingId === application.student_id"
+                            style="cursor: pointer;">
+                            {{ deletingId === application.student_id ? 'Eliminando...' : 'Descartar Solicitud' }}
                         </a>
                     </td>
                 </tr>

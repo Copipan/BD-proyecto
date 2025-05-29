@@ -313,3 +313,51 @@ def update_application_status(student_id: int, status_data: dict):
             cursor.close()
         if conn:
             conn.close()
+
+@router.delete("/delete-application/{student_id}")
+def delete_application(student_id: int):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        # Iniciar transacción
+        conn.autocommit = False
+        
+        # 1. Eliminar de SocialServiceProgress (tabla dependiente)
+        cursor.execute(
+            "DELETE FROM SocialServiceProgress WHERE student_id = :student_id",
+            {"student_id": student_id}
+        )
+        
+        # 2. Eliminar de SocialServiceApplication (tabla principal)
+        cursor.execute(
+            "DELETE FROM SocialServiceApplication WHERE student_id = :student_id",
+            {"student_id": student_id}
+        )
+        
+        # Verificar si se eliminó algún registro
+        if cursor.rowcount == 0:
+            raise HTTPException(
+                status_code=404,
+                detail="No se encontró la solicitud del estudiante"
+            )
+        
+        # Confirmar transacción
+        conn.commit()
+        
+        return {"message": "Solicitud eliminada correctamente"}
+        
+    except HTTPException:
+        raise  # Re-lanza excepciones HTTP personalizadas
+    except Exception as e:
+        if conn:
+            conn.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error al eliminar la solicitud: {str(e)}"
+        )
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
