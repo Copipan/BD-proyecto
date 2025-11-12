@@ -14,7 +14,10 @@ app.include_router(social_service.router)
 # Permite peticiones por parte de la app en angular
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],  # normalmente aquí se inicia la app
+    allow_origins=[
+        "http://localhost:4200",
+        "http://localhost:8000",
+    ],  # normalmente aquí se inicia la app
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
