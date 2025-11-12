@@ -1,13 +1,15 @@
 from fastapi import APIRouter, HTTPException
-from BaseDeDatos import get_connection
+from db import get_connection
 from pydantic import BaseModel
 
 router = APIRouter()
 connection = get_connection()
 
+
 class LoginData(BaseModel):
     username: str
     password: str
+
 
 @router.post("/login")
 def login(data: LoginData):
@@ -23,7 +25,10 @@ def login(data: LoginData):
             "message": "Inicio de sesión correcto",
             "username": username,
             "role": role,
-            "user_id": user_id
+            "user_id": user_id,
         }
     else:
-        raise HTTPException(status_code=401, detail="Nombre de usuario o contraseña inválido")
+        raise HTTPException(
+            status_code=401, detail="Nombre de usuario o contraseña inválido"
+        )
+

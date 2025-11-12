@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException
-from BaseDeDatos import get_connection
+from db import get_connection
 
 router = APIRouter()
 connection = get_connection()
+
 
 @router.get("/profile/student/{user_id}")
 def get_student_profile(user_id: int):
@@ -31,10 +32,11 @@ def get_student_profile(user_id: int):
             "nombre_completo": nombre_completo.strip(),
             "carrera": carrera,
             "facultad": facultad,
-            "campus": campus
+            "campus": campus,
         }
     else:
         raise HTTPException(status_code=404, detail="Perfil no encontrado")
+
 
 @router.get("/profile/admin/{user_id}")
 def get_admin_profile(user_id: int):
@@ -60,7 +62,10 @@ def get_admin_profile(user_id: int):
         return {
             "nombre_completo": nombre_completo.strip(),
             "facultad": facultad,
-            "campus": campus
+            "campus": campus,
         }
     else:
-        raise HTTPException(status_code=404, detail="Perfil de administrador no encontrado")
+        raise HTTPException(
+            status_code=404, detail="Perfil de administrador no encontrado"
+        )
+
