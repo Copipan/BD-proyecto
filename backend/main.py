@@ -1,7 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends # IMPORTANTE: Agregar Depends
 from routes import login, user_profile, social_service_progress, social_service
 from fastapi.middleware.cors import CORSMiddleware
-from db import get_connection
+from db import get_connection # IMPORTANTE: Actualizar el nombre de la función
 
 # Crea la aplicación, es la base donde se va a hacer todo pues funciona como marco de trabajo
 app = FastAPI()
@@ -17,7 +17,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:4200",
         "http://localhost:8000",
-    ],  # normalmente aquí se inicia la app
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -26,14 +26,14 @@ app.add_middleware(
 
 # Es un Endpoint para revisar si la conexión con la base de datos es correcta
 @app.get("/api/db-check")
-def db_check():
+def db_check(cursor=Depends(get_connection)): # Usamos Inyección de Dependencias
     try:
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute("SELECT 'Connected to Oracle' FROM dual")
+        # Añadimos 'AS status' para darle una llave al diccionario.
+        cursor.execute("SELECT 'Connected to PostgreSQL' AS status")
         result = cursor.fetchone()
-        cursor.close()
-        conn.close()
-        return {"message": result[0]}
+        
+        # Como usamos RealDictCursor en db.py, result es un diccionario, no una tupla.
+        return {"message": result['status']}
+        
     except Exception as e:
         return {"error": str(e)}
