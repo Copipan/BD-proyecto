@@ -4,7 +4,6 @@ certifi==2025.8.3
 cffi==2.0.0
 click==8.3.0
 cryptography==46.0.1
-cx_Oracle==8.3.0
 dnspython==2.8.0
 email-validator==2.3.0
 fastapi==0.117.1
@@ -19,7 +18,7 @@ Jinja2==3.1.6
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
 mdurl==0.1.2
-oracledb==3.3.0
+psycopg2==2.9.9
 pycparser==2.23
 pydantic==2.11.9
 pydantic_core==2.33.2

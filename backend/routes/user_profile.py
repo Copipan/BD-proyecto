@@ -1,17 +1,14 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from db import get_connection
 
 router = APIRouter()
-connection = get_connection()
 
 
 @router.get("/profile/student/{user_id}")
-def get_student_profile(user_id: int):
-    cursor = connection.cursor()
-
+def get_student_profile(user_id: int, cursor=Depends(get_connection)):
     query = """
         SELECT 
-            up.nombres || ' ' || up.apellido_paterno || ' ' || NVL(up.apellido_materno, '') AS nombre_completo,
+            up.nombres || ' ' || up.apellido_paterno || ' ' || COALESCE(up.apellido_materno, '') AS nombre_completo,
             c.name AS carrera,
             f.name AS facultad,
             cam.name AS campus
@@ -21,13 +18,19 @@ def get_student_profile(user_id: int):
         JOIN Career c ON s.career_id = c.id
         JOIN Faculty f ON up.faculty_id = f.id
         JOIN Campus cam ON up.campus_id = cam.id
-        WHERE u.id = :user_id
+        WHERE u.id = %s
     """
-    cursor.execute(query, {"user_id": user_id})
+    cursor.execute(query, (user_id,))
     data = cursor.fetchone()
 
     if data:
-        nombre_completo, carrera, facultad, campus = data
+        if isinstance(data, dict):
+            nombre_completo = data["nombre_completo"]
+            carrera = data["carrera"]
+            facultad = data["facultad"]
+            campus = data["campus"]
+        else:
+            nombre_completo, carrera, facultad, campus = data
         return {
             "nombre_completo": nombre_completo.strip(),
             "carrera": carrera,
@@ -39,12 +42,10 @@ def get_student_profile(user_id: int):
 
 
 @router.get("/profile/admin/{user_id}")
-def get_admin_profile(user_id: int):
-    cursor = connection.cursor()
-
+def get_admin_profile(user_id: int, cursor=Depends(get_connection)):
     query = """
         SELECT 
-            up.nombres || ' ' || up.apellido_paterno || ' ' || NVL(up.apellido_materno, '') AS nombre_completo,
+            up.nombres || ' ' || up.apellido_paterno || ' ' || COALESCE(up.apellido_materno, '') AS nombre_completo,
             f.name AS facultad,
             cam.name AS campus
         FROM Users u
@@ -52,13 +53,18 @@ def get_admin_profile(user_id: int):
         JOIN UserProfile up ON u.id = up.user_id
         JOIN Faculty f ON up.faculty_id = f.id
         JOIN Campus cam ON up.campus_id = cam.id
-        WHERE u.id = :user_id
+        WHERE u.id = %s
     """
-    cursor.execute(query, {"user_id": user_id})
+    cursor.execute(query, (user_id,))
     data = cursor.fetchone()
 
     if data:
-        nombre_completo, facultad, campus = data
+        if isinstance(data, dict):
+            nombre_completo = data["nombre_completo"]
+            facultad = data["facultad"]
+            campus = data["campus"]
+        else:
+            nombre_completo, facultad, campus = data
         return {
             "nombre_completo": nombre_completo.strip(),
             "facultad": facultad,
@@ -68,4 +74,3 @@ def get_admin_profile(user_id: int):
         raise HTTPException(
             status_code=404, detail="Perfil de administrador no encontrado"
         )
-

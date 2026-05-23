@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 from datetime import date
-from db import get_connection
+from db import get_db_connection
 
 router = APIRouter(prefix="/social-service")
 
@@ -54,7 +54,7 @@ class SocialServiceApplication(BaseModel):
 @router.get("/student-info/{user_id}")
 def get_student_info(user_id: int):
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         # Obtener información básica del alumno
@@ -66,17 +66,17 @@ def get_student_info(user_id: int):
         FROM Students s
         JOIN Career c ON s.career_id = c.id
         JOIN UserProfile up ON s.user_id = up.user_id
-        WHERE s.user_id = :user_id
+        WHERE s.user_id = %s
         """
-        cursor.execute(query, {"user_id": user_id})
+        cursor.execute(query, (user_id,))
         student = cursor.fetchone()
 
         if not student:
             raise HTTPException(status_code=404, detail="Estudiante no encontrado")
 
         # Revisa si ya existe
-        query = "SELECT id FROM SocialServiceApplication WHERE student_id = :user_id"
-        cursor.execute(query, {"user_id": user_id})
+        query = "SELECT id FROM SocialServiceApplication WHERE student_id = %s"
+        cursor.execute(query, (user_id,))
         existing_app = cursor.fetchone()
 
         cursor.close()
@@ -100,8 +100,10 @@ def get_student_info(user_id: int):
 
 @router.post("/submit-application/{user_id}")
 def submit_application(user_id: int, application: SocialServiceApplication):
+    conn = None
+    cursor = None
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         if not user_id:
@@ -111,8 +113,8 @@ def submit_application(user_id: int, application: SocialServiceApplication):
 
         # Revisa si se tiene una solicitud ya enviada
         cursor.execute(
-            "SELECT id FROM SocialServiceApplication WHERE student_id = :student_id",
-            {"student_id": student_id},
+            "SELECT id FROM SocialServiceApplication WHERE student_id = %s",
+            (student_id,),
         )
         if cursor.fetchone():
             raise HTTPException(status_code=400, detail="Application already exists")
@@ -152,7 +154,7 @@ def submit_application(user_id: int, application: SocialServiceApplication):
         }
 
         # Actualiza los datos usando los que recibió como parámetro, en este caso es application:
-        app_data.update(application.dict(exclude_unset=True))
+        app_data.update(application.model_dump(exclude_unset=True))
 
         # Esto permite trabajar con la información que recibe de tipo fecha
         if app_data["fecha_nacimiento"]:
@@ -179,49 +181,59 @@ def submit_application(user_id: int, application: SocialServiceApplication):
             institucion_colonia, institucion_ciudad, institucion_estado, institucion_telefono,
             institucion_celular, zona, horario, modalidad, platica_sensibilizacion
         ) VALUES (
-            :student_id, 
-            TO_DATE(:fecha_nacimiento, 'YYYY-MM-DD'), 
-            :lugar_nacimiento, 
-            :sexo, 
-            :edad, 
-            :estado_civil,
-            :calle, 
-            :numero, 
-            :colonia, 
-            :ciudad, 
-            :estado, 
-            :telefono, 
-            :celular, 
-            :correo,
-            :carrera, 
-            :matricula, 
-            :semestre, 
-            :porcentaje_materias,
-            :institucion_nombre, 
-            :institucion_departamento, 
-            :institucion_calle, 
-            :institucion_numero,
-            :institucion_colonia, 
-            :institucion_ciudad, 
-            :institucion_estado, 
-            :institucion_telefono,
-            :institucion_celular, 
-            :zona, 
-            :horario, 
-            :modalidad, 
-            :platica_sensibilizacion
+            %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s, %s, %s, %s, %s,
+            %s, %s, %s, %s,
+            %s, %s, %s, %s,
+            %s, %s, %s, %s,
+            %s, %s, %s, %s, %s
         )
         """
 
-        cursor.execute(query, app_data)
+        cursor.execute(
+            query,
+            (
+                app_data["student_id"],
+                app_data["fecha_nacimiento"],
+                app_data["lugar_nacimiento"],
+                app_data["sexo"],
+                app_data["edad"],
+                app_data["estado_civil"],
+                app_data["calle"],
+                app_data["numero"],
+                app_data["colonia"],
+                app_data["ciudad"],
+                app_data["estado"],
+                app_data["telefono"],
+                app_data["celular"],
+                app_data["correo"],
+                app_data["carrera"],
+                app_data["matricula"],
+                app_data["semestre"],
+                app_data["porcentaje_materias"],
+                app_data["institucion_nombre"],
+                app_data["institucion_departamento"],
+                app_data["institucion_calle"],
+                app_data["institucion_numero"],
+                app_data["institucion_colonia"],
+                app_data["institucion_ciudad"],
+                app_data["institucion_estado"],
+                app_data["institucion_telefono"],
+                app_data["institucion_celular"],
+                app_data["zona"],
+                app_data["horario"],
+                app_data["modalidad"],
+                app_data["platica_sensibilizacion"],
+            ),
+        )
 
         # 2. Insertar en tabla secundaria con valores por defecto
         tracking_query = """
-        INSERT INTO SocialServiceProgress 
-        (student_id, papeleria_entregada, reportes_entregados, horas_completadas, updated_at)
-        VALUES (:student_id, 'N', 'N', 0, SYSDATE)
-        """
-        cursor.execute(tracking_query, {"student_id": student_id})
+         INSERT INTO SocialServiceProgress 
+         (student_id, papeleria_entregada, reportes_entregados, horas_completadas, updated_at)
+         VALUES (%s, %s, %s, %s, NOW())
+         """
+        cursor.execute(tracking_query, (student_id, "N", "N", 0))
 
         # Confirmar transacción
         conn.commit()
@@ -243,7 +255,7 @@ def submit_application(user_id: int, application: SocialServiceApplication):
 @router.get("/full-application/{student_id}")
 def get_full_application(student_id: int):
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         # Obtiene información del estudiante
@@ -255,19 +267,17 @@ def get_full_application(student_id: int):
         FROM Students s
         JOIN Career c ON s.career_id = c.id
         JOIN UserProfile up ON s.user_id = up.user_id
-        WHERE s.id = :student_id
+        WHERE s.id = %s
         """
-        cursor.execute(student_query, {"student_id": student_id})
+        cursor.execute(student_query, (student_id,))
         student = cursor.fetchone()
 
         if not student:
             raise HTTPException(status_code=404, detail="Estudiante no encontrado")
 
         # Obtiene la solicitud y la guarda en application
-        app_query = (
-            "SELECT * FROM SocialServiceApplication WHERE student_id = :student_id"
-        )
-        cursor.execute(app_query, {"student_id": student_id})
+        app_query = "SELECT * FROM SocialServiceApplication WHERE student_id = %s"
+        cursor.execute(app_query, (student_id,))
         columns = [col[0] for col in cursor.description]
         application = cursor.fetchone()
 
@@ -300,8 +310,10 @@ def get_full_application(student_id: int):
 
 @router.put("/update-status/{student_id}")
 def update_application_status(student_id: int, status_data: dict):
+    conn = None
+    cursor = None
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         new_status = status_data.get("status")
@@ -310,10 +322,10 @@ def update_application_status(student_id: int, status_data: dict):
 
         query = """
         UPDATE SocialServiceApplication 
-        SET status = :status 
-        WHERE student_id = :student_id
+        SET status = %s 
+        WHERE student_id = %s
         """
-        cursor.execute(query, {"status": new_status, "student_id": student_id})
+        cursor.execute(query, (new_status, student_id))
         conn.commit()
 
         return {"message": "Estado actualizado correctamente"}
@@ -331,8 +343,10 @@ def update_application_status(student_id: int, status_data: dict):
 
 @router.delete("/delete-application/{student_id}")
 def delete_application(student_id: int):
+    conn = None
+    cursor = None
     try:
-        conn = get_connection()
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         # Iniciar transacción
@@ -340,14 +354,14 @@ def delete_application(student_id: int):
 
         # 1. Eliminar de SocialServiceProgress (tabla dependiente)
         cursor.execute(
-            "DELETE FROM SocialServiceProgress WHERE student_id = :student_id",
-            {"student_id": student_id},
+            "DELETE FROM SocialServiceProgress WHERE student_id = %s",
+            (student_id,),
         )
 
         # 2. Eliminar de SocialServiceApplication (tabla principal)
         cursor.execute(
-            "DELETE FROM SocialServiceApplication WHERE student_id = :student_id",
-            {"student_id": student_id},
+            "DELETE FROM SocialServiceApplication WHERE student_id = %s",
+            (student_id,),
         )
 
         # Verificar si se eliminó algún registro
@@ -374,4 +388,3 @@ def delete_application(student_id: int):
             cursor.close()
         if conn:
             conn.close()
-
