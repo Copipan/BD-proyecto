@@ -169,9 +169,6 @@ def submit_application(user_id: int, application: SocialServiceApplication):
             "Parameters being sent:", app_data
         )  # Para saber los parámetros que se van a enviar, solo se ve en consola
 
-        # Iniciar transacción
-        conn.autocommit = False
-
         query = """
         INSERT INTO SocialServiceApplication (
             student_id, fecha_nacimiento, lugar_nacimiento, sexo, edad, estado_civil,
@@ -348,9 +345,6 @@ def delete_application(student_id: int):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-
-        # Iniciar transacción
-        conn.autocommit = False
 
         # 1. Eliminar de SocialServiceProgress (tabla dependiente)
         cursor.execute(
