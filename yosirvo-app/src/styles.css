@@ -1,5 +1,4 @@
 /* ============================================================
-<<<<<<< Updated upstream
    YOSIRVO — Global Design System
    Paleta universitaria suavizada:
      Morado principal  #6B4FA0  (más claro que el original #4a2c82)
@@ -50,92 +49,18 @@ html, body {
   height: 100%;
   margin: 0;
 }
-=======
-   YOSIRVO — Design System v2 · Dark Purple Islands
-   Paleta:
-     Fondo              #0D0A1E  (noche profunda)
-     Superficie         #1A1535  (isla oscura)
-     Superficie-2       #231E47  (isla más clara)
-     Morado vivid       #7C3AED  (acento principal)
-     Morado medio       #A78BFA  (texto sobre oscuro)
-     Blanco puro        #FFFFFF
-     Blanco suave       #EDE9FF  (texto principal)
-     Texto atenuado     #9D8FCC
-     Borde suave        rgba(124,58,237,.20)
-     Oro acento         #F59E0B
-============================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
-
-/* ── Variables ──────────────────────────────────────────── */
-:root {
-  --clr-bg:            #0D0A1E;
-  --clr-bg-2:          #120F28;
-  --clr-surface:       #1A1535;
-  --clr-surface-2:     #231E47;
-  --clr-surface-3:     #2D2760;
-
-  --clr-purple:        #7C3AED;
-  --clr-purple-mid:    #A78BFA;
-  --clr-purple-light:  rgba(124,58,237,.18);
-  --clr-purple-xlight: rgba(124,58,237,.08);
-  --clr-purple-glow:   rgba(124,58,237,.35);
-
-  --clr-gold:          #F59E0B;
-  --clr-gold-btn:      #D97706;
-  --clr-gold-hover:    #FBBF24;
-  --clr-gold-light:    rgba(245,158,11,.15);
-
-  --clr-text:          #EDE9FF;
-  --clr-text-muted:    #9D8FCC;
-  --clr-text-dim:      #6B62A0;
-  --clr-white:         #FFFFFF;
-  --clr-border:        rgba(124,58,237,.22);
-  --clr-border-soft:   rgba(167,139,250,.12);
-
-  --radius-sm:         14px;
-  --radius-md:         20px;
-  --radius-lg:         28px;
-  --radius-xl:         36px;
-
-  --shadow-sm:  0 2px 12px rgba(13,10,30,.60), 0 0 0 1px rgba(124,58,237,.10);
-  --shadow-md:  0 8px 32px rgba(13,10,30,.70), 0 0 0 1px rgba(124,58,237,.18);
-  --shadow-lg:  0 16px 56px rgba(13,10,30,.80), 0 0 40px rgba(124,58,237,.15);
-  --shadow-glow:0 0 32px rgba(124,58,237,.40);
-
-  --transition: 0.25s cubic-bezier(.4,0,.2,1);
-  --transition-fast: 0.15s ease;
-}
-
-/* ── Reset / Base ───────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; }
-
-html, body { height: 100%; }
->>>>>>> Stashed changes
 
 body {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.95rem;
   color: var(--clr-text);
   background-color: var(--clr-bg);
-<<<<<<< Updated upstream
-=======
-  background-image:
-    radial-gradient(ellipse 80% 60% at 10% 0%,  rgba(124,58,237,.25) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(76,29,149,.30) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 40% at 50% 50%,  rgba(17,13,38,.80) 0%, transparent 100%);
-  background-attachment: fixed;
->>>>>>> Stashed changes
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
-<<<<<<< Updated upstream
   color: var(--clr-purple);
-=======
-  color: var(--clr-white);
->>>>>>> Stashed changes
   font-weight: 700;
 }
 
@@ -145,7 +70,6 @@ h6 {
   color: var(--clr-text);
 }
 
-<<<<<<< Updated upstream
 p, label, span, td, th, li, a {
   font-family: 'DM Sans', sans-serif;
 }
@@ -167,57 +91,19 @@ p, label, span, td, th, li, a {
   transition: margin-left var(--transition);
   display: flex;
   flex-direction: column;
-=======
-p, label, span, td, th, li { font-family: 'DM Sans', sans-serif; }
-
-a { color: var(--clr-purple-mid); text-decoration: none; }
-a:hover { color: var(--clr-white); }
-
-/* ── Navbar superior ────────────────────────────────────── */
-.navbar.bg-light,
-nav.navbar {
-  background: rgba(26,21,53,.85) !important;
-  backdrop-filter: blur(16px) saturate(1.8) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(1.8) !important;
-  border-bottom: 1px solid var(--clr-border) !important;
-  box-shadow: 0 4px 24px rgba(13,10,30,.50) !important;
-  padding: 0.65rem 1.2rem !important;
-}
-
-/* ── Sidebar ────────────────────────────────────────────── */
-#sidebar-wrapper {
-  background: rgba(26,21,53,.92) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-right: 1px solid var(--clr-border) !important;
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0 !important;
-  min-width: 248px;
-  max-width: 248px;
-  box-shadow: 4px 0 32px rgba(13,10,30,.50);
-  transition: margin-left var(--transition);
-  display: flex;
-  flex-direction: column;
-  padding-top: 0.5rem;
-  padding-bottom: 1rem;
->>>>>>> Stashed changes
 }
 
 #sidebar-wrapper .list-group {
   padding: 1rem 0.75rem;
   display: flex;
   flex-direction: column;
-<<<<<<< Updated upstream
   gap: 2px;
-=======
-  gap: 4px;
->>>>>>> Stashed changes
 }
 
 #sidebar-wrapper .list-group-item {
   border: none !important;
   border-radius: var(--radius-sm) !important;
   background: transparent !important;
-<<<<<<< Updated upstream
   color: var(--clr-text-muted);
   font-weight: 500;
   font-size: 0.9rem;
@@ -229,43 +115,10 @@ nav.navbar {
 #sidebar-wrapper .list-group-item:hover {
   background-color: var(--clr-purple-light) !important;
   color: var(--clr-purple) !important;
-=======
-  color: var(--clr-text-muted) !important;
-  font-weight: 500;
-  font-size: 0.9rem;
-  padding: 0.65rem 1rem;
-  transition: background var(--transition), color var(--transition), transform var(--transition-fast);
-  letter-spacing: 0.01em;
-  position: relative;
-  overflow: hidden;
-}
-
-#sidebar-wrapper .list-group-item::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 50%;
-  transform: translateY(-50%) scaleY(0);
-  width: 3px;
-  height: 60%;
-  background: var(--clr-purple-mid);
-  border-radius: 0 4px 4px 0;
-  transition: transform var(--transition);
-}
-
-#sidebar-wrapper .list-group-item:hover {
-  background: var(--clr-purple-light) !important;
-  color: var(--clr-text) !important;
-  transform: translateX(3px);
-}
-
-#sidebar-wrapper .list-group-item:hover::before {
-  transform: translateY(-50%) scaleY(1);
->>>>>>> Stashed changes
 }
 
 #sidebar-wrapper .list-group-item.active,
 #sidebar-wrapper .list-group-item.router-link-active {
-<<<<<<< Updated upstream
   background-color: var(--clr-purple-light) !important;
   color: var(--clr-purple) !important;
   font-weight: 600;
@@ -274,28 +127,11 @@ nav.navbar {
 /* ── Layout — área de contenido ───────────────────────────── */
 #page-content-wrapper {
   background-color: var(--clr-bg);
-=======
-  background: linear-gradient(135deg, rgba(124,58,237,.30), rgba(167,139,250,.15)) !important;
-  color: var(--clr-white) !important;
-  font-weight: 600;
-  box-shadow: inset 0 0 0 1px rgba(124,58,237,.30);
-}
-
-#sidebar-wrapper .list-group-item.active::before,
-#sidebar-wrapper .list-group-item.router-link-active::before {
-  transform: translateY(-50%) scaleY(1);
-}
-
-/* ── Área de contenido ──────────────────────────────────── */
-#page-content-wrapper {
-  background: transparent;
->>>>>>> Stashed changes
   width: 100%;
   padding: 2rem 2.5rem;
   overflow-y: auto;
 }
 
-<<<<<<< Updated upstream
 /* ── Botón hamburguesa ────────────────────────────────────── */
 .navbar .btn-primary,
 nav .btn-primary {
@@ -306,24 +142,10 @@ nav .btn-primary {
   border-radius: var(--radius-sm);
   font-size: 1.1rem;
   box-shadow: none !important;
-=======
-/* ── Botón hamburguesa ──────────────────────────────────── */
-.navbar .btn-primary,
-nav .btn-primary {
-  background: rgba(124,58,237,.30) !important;
-  border: 1px solid rgba(124,58,237,.50) !important;
-  color: var(--clr-white) !important;
-  padding: 0.45rem 0.8rem;
-  border-radius: var(--radius-sm);
-  font-size: 1.1rem;
-  backdrop-filter: blur(8px);
-  transition: background var(--transition);
->>>>>>> Stashed changes
 }
 
 .navbar .btn-primary:hover,
 nav .btn-primary:hover {
-<<<<<<< Updated upstream
   background-color: var(--clr-purple-mid) !important;
 }
 
@@ -338,41 +160,11 @@ nav .btn-primary:hover {
   box-shadow: none !important;
 }
 
-=======
-  background: rgba(124,58,237,.55) !important;
-}
-
-/* ── Botón primario ─────────────────────────────────────── */
-.btn-primary {
-  background: linear-gradient(135deg, #7C3AED, #6D28D9) !important;
-  border: none !important;
-  color: var(--clr-white) !important;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition);
-  box-shadow: 0 4px 15px rgba(124,58,237,.40) !important;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,.15), transparent);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
-
-.btn-primary:hover::after { opacity: 1; }
-
->>>>>>> Stashed changes
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary:focus-visible,
 .btn-primary:not(:disabled):not(.disabled):active {
-<<<<<<< Updated upstream
   background-color: var(--clr-gold-hover) !important;
   box-shadow: 0 2px 8px rgba(201,148,26,.30) !important;
   color: #fff !important;
@@ -424,92 +216,10 @@ nav .btn-primary:hover {
 .table {
   border-collapse: separate;
   border-spacing: 0;
-=======
-  background: linear-gradient(135deg, #8B47F0, #7C3AED) !important;
-  box-shadow: 0 6px 24px rgba(124,58,237,.55), 0 0 0 1px rgba(167,139,250,.30) !important;
-  color: var(--clr-white) !important;
-  transform: translateY(-1px);
-}
-
-.btn-primary:disabled {
-  background: rgba(124,58,237,.25) !important;
-  color: var(--clr-text-dim) !important;
-  box-shadow: none !important;
-  opacity: 1;
-}
-
-/* ── Botón secundario ───────────────────────────────────── */
-.btn-secondary {
-  background: rgba(124,58,237,.15) !important;
-  border: 1px solid rgba(124,58,237,.35) !important;
-  color: var(--clr-purple-mid) !important;
-  font-weight: 500;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition);
-}
-
-.btn-secondary:hover {
-  background: rgba(124,58,237,.28) !important;
-  color: var(--clr-white) !important;
-  border-color: rgba(124,58,237,.55) !important;
-  transform: translateY(-1px);
-}
-
-/* ── Cards / Islas ──────────────────────────────────────── */
-.card {
-  border: 1px solid var(--clr-border) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-md) !important;
-  background: var(--clr-surface) !important;
-  transition: transform var(--transition), box-shadow var(--transition);
-  animation: islandIn 0.4s cubic-bezier(.34,1.56,.64,1) both;
-}
-
-@keyframes islandIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0)   scale(1);    }
-}
-
-.card:hover {
-  box-shadow: var(--shadow-lg) !important;
-  transform: translateY(-3px);
-}
-
-.card-header {
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
-  border-bottom: 1px solid var(--clr-border) !important;
-  background: linear-gradient(135deg, #4C1D95, #6D28D9) !important;
-  color: var(--clr-white) !important;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  padding: 1rem 1.4rem !important;
-  letter-spacing: 0.01em;
-}
-
-.card-header.bg-secondary {
-  background: linear-gradient(135deg, #3730A3, #4C1D95) !important;
-}
-
-.card-header.bg-light {
-  background: var(--clr-surface-2) !important;
-  color: var(--clr-text) !important;
-}
-
-.card-body {
-  color: var(--clr-text);
-}
-
-/* ── Tablas ─────────────────────────────────────────────── */
-.table {
-  border-collapse: separate;
-  border-spacing: 0;
-  color: var(--clr-text);
->>>>>>> Stashed changes
 }
 
 .table thead th,
 .purple {
-<<<<<<< Updated upstream
   background-color: var(--clr-purple) !important;
   color: #fff !important;
   font-weight: 600;
@@ -517,15 +227,6 @@ nav .btn-primary:hover {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 0.75rem 1rem !important;
-=======
-  background: linear-gradient(135deg, #4C1D95, #6D28D9) !important;
-  color: var(--clr-white) !important;
-  font-weight: 600;
-  font-size: 0.80rem;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  padding: 0.8rem 1rem !important;
->>>>>>> Stashed changes
   border: none !important;
 }
 
@@ -533,7 +234,6 @@ nav .btn-primary:hover {
 .table thead th:last-child  { border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important; }
 
 .table tbody tr {
-<<<<<<< Updated upstream
   transition: background var(--transition);
   border-bottom: 1px solid var(--clr-border);
 }
@@ -552,27 +252,6 @@ nav .btn-primary:hover {
 }
 
 /* ── Form controls ────────────────────────────────────────── */
-=======
-  transition: background var(--transition-fast);
-  border-bottom: 1px solid var(--clr-border-soft) !important;
-}
-
-.table tbody tr:last-child { border-bottom: none !important; }
-
-.table tbody tr:hover {
-  background: var(--clr-purple-xlight) !important;
-}
-
-.table td {
-  padding: 0.75rem 1rem !important;
-  vertical-align: middle;
-  color: var(--clr-text);
-  border: none !important;
-  background: transparent !important;
-}
-
-/* ── Form controls ──────────────────────────────────────── */
->>>>>>> Stashed changes
 .form-control,
 .form-select {
   border: 1px solid var(--clr-border);
@@ -580,47 +259,20 @@ nav .btn-primary:hover {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.92rem;
   color: var(--clr-text);
-<<<<<<< Updated upstream
   background-color: var(--clr-surface);
   transition: border-color var(--transition), box-shadow var(--transition);
   padding: 0.5rem 0.85rem;
-=======
-  background-color: var(--clr-surface-2);
-  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-  padding: 0.55rem 0.9rem;
-}
-
-.form-control::placeholder,
-.form-select option { color: var(--clr-text-dim); }
-
-.form-select option {
-  background: var(--clr-surface-2);
-  color: var(--clr-text);
->>>>>>> Stashed changes
 }
 
 .form-control:focus,
 .form-select:focus {
-<<<<<<< Updated upstream
   border-color: var(--clr-purple-mid);
   box-shadow: 0 0 0 3px rgba(107,79,160,.15);
   outline: none;
-=======
-  border-color: var(--clr-purple);
-  box-shadow: 0 0 0 3px rgba(124,58,237,.22), 0 0 16px rgba(124,58,237,.15);
-  outline: none;
-  background-color: var(--clr-surface-3);
-}
-
-.form-control.is-invalid {
-  border-color: #F87171 !important;
-  box-shadow: 0 0 0 3px rgba(248,113,113,.18) !important;
->>>>>>> Stashed changes
 }
 
 .form-label {
   font-weight: 500;
-<<<<<<< Updated upstream
   color: var(--clr-text);
   margin-bottom: 0.3rem;
 }
@@ -672,113 +324,19 @@ nav .btn-primary:hover {
 .student-info {
   margin-bottom: 0.75rem;
   padding-bottom: 0.75rem;
-=======
-  color: var(--clr-text-muted);
-  margin-bottom: 0.35rem;
-  font-size: 0.88rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.form-check-input {
-  background-color: var(--clr-surface-2);
-  border-color: var(--clr-border);
-}
-
-.form-check-input:checked {
-  background-color: var(--clr-purple);
-  border-color: var(--clr-purple);
-}
-
-/* ── Badges ─────────────────────────────────────────────── */
-.badge {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
-  padding: 0.32em 0.8em;
-  border-radius: 100px;
-}
-
-.bg-success  { background: linear-gradient(135deg, #059669, #10B981) !important; }
-.bg-warning  { background: linear-gradient(135deg, #D97706, #F59E0B) !important; }
-.bg-danger   { background: linear-gradient(135deg, #DC2626, #EF4444) !important; }
-.bg-secondary{ background: linear-gradient(135deg, #4C1D95, #6D28D9) !important; }
-.bg-info     { background: linear-gradient(135deg, #0369A1, #0EA5E9) !important; }
-
-/* ── Clases legacy ──────────────────────────────────────── */
-.purple { background: linear-gradient(135deg, #4C1D95, #6D28D9) !important; }
-.purple-text { color: var(--clr-purple-mid) !important; }
-
-/* ── Student / Admin cards ──────────────────────────────── */
-.student-card {
-  box-shadow: var(--shadow-lg);
-  border-radius: var(--radius-xl) !important;
-  background: var(--clr-surface) !important;
-  border: 1px solid var(--clr-border) !important;
-  overflow: hidden;
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.student-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg), var(--shadow-glow) !important;
-}
-
-.student-card-header {
-  background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 100%);
-  padding: 1.4rem 1.75rem;
-  font-size: 1.15rem;
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  color: var(--clr-white);
-  position: relative;
-  overflow: hidden;
-}
-
-.student-card-header::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.student-card-body {
-  padding: 1.75rem;
-  font-size: 0.95rem;
-  background: var(--clr-surface);
-}
-
-.student-info {
-  margin-bottom: 0.9rem;
-  padding-bottom: 0.9rem;
->>>>>>> Stashed changes
 }
 
 .student-info strong {
   display: block;
-<<<<<<< Updated upstream
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--clr-text-muted);
   margin-bottom: 2px;
-=======
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--clr-text-muted);
-  margin-bottom: 4px;
->>>>>>> Stashed changes
 }
 
 .student-info p {
   margin: 0;
-<<<<<<< Updated upstream
   font-size: 1rem;
   color: var(--clr-text);
   font-weight: 500;
@@ -898,219 +456,3 @@ input[placeholder*="buscar"] {
 
 .border-bottom { border-bottom: 1px solid var(--clr-border) !important; }
 .border-end    { border-right:  1px solid var(--clr-border) !important; }
-=======
-  font-size: 1.02rem;
-  color: var(--clr-white);
-  font-weight: 500;
-}
-
-/* ── Pulsating border ───────────────────────────────────── */
-.pulsating-border {
-  border: 1px solid rgba(124,58,237,.40) !important;
-  animation: islandGlow 3s infinite ease-in-out;
-}
-
-@keyframes islandGlow {
-  0%, 100% { box-shadow: var(--shadow-md); }
-  50%       { box-shadow: var(--shadow-lg), 0 0 48px rgba(124,58,237,.35); }
-}
-
-/* ── Login ──────────────────────────────────────────────── */
-.login-wrapper,
-.d-flex.justify-content-center.align-items-center.vh-100 {
-  background-color: var(--clr-bg) !important;
-  background-image:
-    radial-gradient(ellipse 70% 60% at 15% 20%, rgba(124,58,237,.30) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 50% at 85% 80%, rgba(76,29,149,.28) 0%, transparent 55%) !important;
-  background-attachment: fixed !important;
-}
-
-/* ── Progress ───────────────────────────────────────────── */
-.progress {
-  border-radius: 100px;
-  background: var(--clr-surface-2);
-  height: 10px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  border-radius: 100px;
-  transition: width 0.8s cubic-bezier(.4,0,.2,1);
-}
-
-.progress-bar.bg-success { background: linear-gradient(90deg, #059669, #10B981) !important; }
-.progress-bar.bg-info    { background: linear-gradient(90deg, #4C1D95, #7C3AED) !important; }
-.progress-bar.bg-warning { background: linear-gradient(90deg, #D97706, #F59E0B) !important; }
-
-/* ── Alerts ─────────────────────────────────────────────── */
-.alert {
-  border-radius: var(--radius-md);
-  border: none;
-  font-size: 0.9rem;
-  backdrop-filter: blur(8px);
-}
-
-.alert-info    { background: rgba(14,165,233,.15); border-left: 4px solid #0EA5E9 !important; color: #7DD3FC; }
-.alert-success { background: rgba(16,185,129,.12); border-left: 4px solid #10B981 !important; color: #6EE7B7; }
-.alert-danger  { background: rgba(239,68,68,.12);  border-left: 4px solid #EF4444 !important; color: #FCA5A5; }
-.alert-secondary { background: var(--clr-purple-xlight); border-left: 4px solid var(--clr-purple) !important; color: var(--clr-text-muted); }
-
-/* ── Spinner ────────────────────────────────────────────── */
-.spinner-border { color: var(--clr-purple-mid) !important; }
-.spinner-border.text-primary { color: var(--clr-purple-mid) !important; }
-
-/* ── Scrollbar ──────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(124,58,237,.35); border-radius: 100px; }
-::-webkit-scrollbar-thumb:hover { background: var(--clr-purple); }
-
-/* ── Entrada de páginas ─────────────────────────────────── */
-router-outlet + * { animation: pageIn 0.30s cubic-bezier(.4,0,.2,1) both; }
-
-@keyframes pageIn {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Input búsqueda ─────────────────────────────────────── */
-input[placeholder*="Buscar"],
-input[placeholder*="buscar"] {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239D8FCC' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.868-3.833zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 0.85rem center;
-  padding-left: 2.4rem !important;
-}
-
-/* ── Table responsive ───────────────────────────────────── */
-.table-responsive {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--clr-border);
-  background: var(--clr-surface);
-  animation: islandIn 0.35s cubic-bezier(.34,1.56,.64,1) both;
-}
-
-/* ── Botones variantes ──────────────────────────────────── */
-.btn-outline-danger {
-  color: #FCA5A5 !important;
-  border-color: rgba(239,68,68,.50) !important;
-  border-radius: var(--radius-sm);
-  background: transparent !important;
-}
-
-.btn-outline-danger:hover {
-  background: rgba(239,68,68,.18) !important;
-  color: #FCA5A5 !important;
-  border-color: #EF4444 !important;
-}
-
-.btn-outline-secondary {
-  color: var(--clr-text-muted) !important;
-  border-color: var(--clr-border) !important;
-  background: transparent !important;
-  border-radius: var(--radius-sm);
-}
-
-.btn-outline-secondary:hover {
-  background: var(--clr-purple-xlight) !important;
-  color: var(--clr-text) !important;
-}
-
-.btn-success {
-  background: linear-gradient(135deg, #059669, #10B981) !important;
-  border: none !important;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  box-shadow: 0 4px 15px rgba(16,185,129,.30) !important;
-  transition: all var(--transition);
-}
-
-.btn-success:hover {
-  background: linear-gradient(135deg, #10B981, #059669) !important;
-  box-shadow: 0 6px 24px rgba(16,185,129,.45) !important;
-  transform: translateY(-1px);
-}
-
-.btn-danger {
-  background: linear-gradient(135deg, #DC2626, #EF4444) !important;
-  border: none !important;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  box-shadow: 0 4px 15px rgba(239,68,68,.30) !important;
-  transition: all var(--transition);
-}
-
-.btn-danger:hover {
-  box-shadow: 0 6px 24px rgba(239,68,68,.45) !important;
-  transform: translateY(-1px);
-}
-
-.btn-sm { font-size: 0.82rem; padding: 0.3rem 0.75rem; }
-
-/* ── Utilitarios ────────────────────────────────────────── */
-.text-muted   { color: var(--clr-text-muted) !important; }
-.text-white   { color: var(--clr-white) !important; }
-.text-secondary { color: var(--clr-text-muted) !important; }
-.bg-light     { background-color: var(--clr-surface-2) !important; }
-
-.border-bottom { border-bottom: 1px solid var(--clr-border) !important; }
-.border-end    { border-right:  1px solid var(--clr-border) !important; }
-
-.fw-bold { color: var(--clr-white); }
-
-/* ── Stagger animación para listas de cards ─────────────── */
-.row .col-md-6:nth-child(1) .card,
-.row .col-lg-4:nth-child(1) .card { animation-delay: 0.05s; }
-.row .col-md-6:nth-child(2) .card,
-.row .col-lg-4:nth-child(2) .card { animation-delay: 0.10s; }
-.row .col-md-6:nth-child(3) .card,
-.row .col-lg-4:nth-child(3) .card { animation-delay: 0.15s; }
-.row .col-md-6:nth-child(4) .card,
-.row .col-lg-4:nth-child(4) .card { animation-delay: 0.20s; }
-.row .col-md-6:nth-child(5) .card,
-.row .col-lg-4:nth-child(5) .card { animation-delay: 0.25s; }
-.row .col-md-6:nth-child(6) .card,
-.row .col-lg-4:nth-child(6) .card { animation-delay: 0.30s; }
-
-/* ── Modal overlay ──────────────────────────────────────── */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(13,10,30,.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  z-index: 1050;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeBlur 0.20s ease;
-}
-
-@keyframes fadeBlur {
-  from { opacity: 0; backdrop-filter: blur(0px); }
-  to   { opacity: 1; backdrop-filter: blur(6px); }
-}
-
-/* ── Clases de h2, small genéricos ─────────────────────── */
-small { color: var(--clr-text-muted); }
-
-/* ── Botón cerrar (Bootstrap .btn-close) ────────────────── */
-.btn-close {
-  filter: invert(1) brightness(2);
-  opacity: 0.7;
-  transition: opacity var(--transition-fast);
-}
-.btn-close:hover { opacity: 1; }
-
-/* ── Invalid feedback ───────────────────────────────────── */
-.invalid-feedback { color: #FCA5A5; font-size: 0.8rem; }
-.text-danger { color: #FCA5A5 !important; }
-
-/* ── Floating label group (opcional) ───────────────────── */
-.input-group-text {
-  background: var(--clr-surface-2);
-  border-color: var(--clr-border);
-  color: var(--clr-text-muted);
-}
->>>>>>> Stashed changes

@@ -1,39 +1,21 @@
-<<<<<<< Updated upstream
 /* ===== Modal Overlay ===== */
 .modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(30,24,48,.45);
-=======
-/* ===== Modal ===== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(13,10,30,.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
->>>>>>> Stashed changes
   z-index: 1050;
   display: flex;
   align-items: center;
   justify-content: center;
-<<<<<<< Updated upstream
   animation: fadeIn 0.15s ease;
 }
 
 @keyframes fadeIn {
-=======
-  animation: fadeBlur 0.20s ease;
-}
-
-@keyframes fadeBlur {
->>>>>>> Stashed changes
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 
 .modal-card {
-<<<<<<< Updated upstream
   background: #fff;
   border-radius: 10px;
   width: 100%;
@@ -47,29 +29,12 @@
 @keyframes slideUp {
   from { transform: translateY(30px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
-=======
-  background: #1A1535;
-  border-radius: 28px;
-  width: 100%;
-  max-width: 660px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 24px 64px rgba(13,10,30,.85), 0 0 0 1px rgba(124,58,237,.25);
-  animation: modalIn 0.25s cubic-bezier(.34,1.56,.64,1);
-  border: 1px solid rgba(124,58,237,.25);
-}
-
-@keyframes modalIn {
-  from { transform: translateY(32px) scale(0.95); opacity: 0; }
-  to   { transform: translateY(0)    scale(1);    opacity: 1; }
->>>>>>> Stashed changes
 }
 
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-<<<<<<< Updated upstream
   padding: 1rem 1.25rem;
   border-radius: 10px 10px 0 0;
   background-color: var(--clr-purple);
@@ -77,13 +42,4 @@
 
 .modal-body {
   padding: 1.5rem;
-=======
-  padding: 1.1rem 1.4rem;
-  border-radius: 28px 28px 0 0;
-  background: linear-gradient(135deg, #4C1D95, #7C3AED);
-}
-
-.modal-body {
-  padding: 1.6rem;
->>>>>>> Stashed changes
 }

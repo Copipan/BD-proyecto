@@ -1,24 +1,15 @@
 .report-card {
-  border-radius: 20px !important;
-  background: #1A1535 !important;
-  border: 1px solid rgba(124,58,237,.18) !important;
-  transition: transform 0.22s cubic-bezier(.4,0,.2,1), box-shadow 0.22s ease;
-  animation: islandIn 0.4s cubic-bezier(.34,1.56,.64,1) both;
-}
-
-@keyframes islandIn {
-  from { opacity: 0; transform: translateY(14px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .report-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(13,10,30,.70), 0 0 30px rgba(124,58,237,.22) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
 .selected-card {
-  border-color: #7C3AED !important;
-  box-shadow: 0 0 0 2px rgba(124,58,237,.50), 0 12px 40px rgba(13,10,30,.70) !important;
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
 }
 
 .description-preview {
@@ -26,11 +17,4 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  color: #9D8FCC;
-  font-size: 0.85rem;
 }
-
-/* Bordes de color por status */
-.border-warning { border-left: 4px solid #F59E0B !important; }
-.border-success { border-left: 4px solid #10B981 !important; }
-.border-danger  { border-left: 4px solid #EF4444 !important; }
