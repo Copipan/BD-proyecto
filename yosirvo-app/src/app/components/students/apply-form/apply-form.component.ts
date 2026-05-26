@@ -48,7 +48,7 @@ export class ApplyFormComponent implements OnInit {
       // Academic Info
       carrera: [{value: '', disabled: true}],
       matricula: [{value: '', disabled: true}],
-      semestre: ['', [Validators.required, Validators.min(1)]],
+      semestre: [{value: '', disabled: true}],
       porcentaje_materias: ['', Validators.required],
       
       // Institution Info
@@ -91,7 +91,8 @@ export class ApplyFormComponent implements OnInit {
           celular: response.cellphone,
           correo: response.email,
           carrera: response.carrera,
-          matricula: response.student_id
+          matricula: response.student_id,
+          semestre: response.semestre
         });
         
         this.isLoading = false;

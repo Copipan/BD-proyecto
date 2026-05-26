@@ -3,7 +3,7 @@
 
   <div *ngIf="isLoading" class="text-center my-5">
     <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
+      <span class="visually-hidden">Cargando...</span>
     </div>
   </div>
 
@@ -11,57 +11,58 @@
     <div class="card-header text-white purple">
       <h4 class="mb-0">Estado actual de la solicitud:
         <span class="badge ms-2" [ngClass]="{
-          'bg-warning': application.STATUS === 'pending',
-          'bg-success': application.STATUS === 'accepted',
-          'bg-danger': application.STATUS === 'rejected'
+          'bg-warning text-dark': application.status === 'pending',
+          'bg-success': application.status === 'accepted',
+          'bg-danger': application.status === 'rejected'
         }">
-          {{ application.STATUS | titlecase }}
+          {{ application.status | titlecase }}
         </span>
       </h4>
     </div>
 
     <div class="card-body">
+
       <!-- Datos personales -->
       <h5 class="fw-bold text-secondary">Datos personales</h5>
       <hr>
       <div class="row g-3 mb-3">
         <div class="col-md-4">
-          <label class="form-label">Apellido paterno:</label>
+          <label class="form-label fw-semibold">Apellido paterno:</label>
           <p class="form-control-plaintext text-muted">{{ studentInfo.apellido_paterno }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Apellido materno:</label>
+          <label class="form-label fw-semibold">Apellido materno:</label>
           <p class="form-control-plaintext text-muted">{{ studentInfo.apellido_materno }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Nombre(s):</label>
+          <label class="form-label fw-semibold">Nombre(s):</label>
           <p class="form-control-plaintext text-muted">{{ studentInfo.nombres }}</p>
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-md-4">
-          <label class="form-label">Fecha de nacimiento:</label>
-          <p class="form-control-plaintext text-muted">{{ application.FECHA_NACIMIENTO | date }}</p>
+          <label class="form-label fw-semibold">Fecha de nacimiento:</label>
+          <p class="form-control-plaintext text-muted">{{ application.fecha_nacimiento | date:'dd/MM/yyyy' }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Lugar de nacimiento:</label>
-          <p class="form-control-plaintext text-muted">{{ application.LUGAR_NACIMIENTO }}</p>
+          <label class="form-label fw-semibold">Lugar de nacimiento:</label>
+          <p class="form-control-plaintext text-muted">{{ application.lugar_nacimiento }}</p>
         </div>
         <div class="col-md-2">
-          <label class="form-label">Sexo:</label>
-          <p class="form-control-plaintext text-muted">{{ application.SEXO | titlecase }}</p>
+          <label class="form-label fw-semibold">Sexo:</label>
+          <p class="form-control-plaintext text-muted">{{ application.sexo | titlecase }}</p>
         </div>
         <div class="col-md-2">
-          <label class="form-label">Edad:</label>
-          <p class="form-control-plaintext text-muted">{{ application.EDAD }}</p>
+          <label class="form-label fw-semibold">Edad:</label>
+          <p class="form-control-plaintext text-muted">{{ application.edad }}</p>
         </div>
       </div>
 
       <div class="row g-3 mb-4">
         <div class="col-md-4">
-          <label class="form-label">Estado civil:</label>
-          <p class="form-control-plaintext text-muted">{{ application.ESTADO_CIVIL | titlecase }}</p>
+          <label class="form-label fw-semibold">Estado civil:</label>
+          <p class="form-control-plaintext text-muted">{{ application.estado_civil | titlecase }}</p>
         </div>
       </div>
 
@@ -70,160 +71,166 @@
       <hr>
       <div class="row g-3 mb-3">
         <div class="col-md-6">
-          <label class="form-label">Calle:</label>
-          <p class="form-control-plaintext text-muted">{{ application.CALLE }}</p>
+          <label class="form-label fw-semibold">Calle:</label>
+          <p class="form-control-plaintext text-muted">{{ application.calle }}</p>
         </div>
         <div class="col-md-2">
-          <label class="form-label">Número:</label>
-          <p class="form-control-plaintext text-muted">{{ application.NUMERO }}</p>
+          <label class="form-label fw-semibold">Número:</label>
+          <p class="form-control-plaintext text-muted">{{ application.numero }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Colonia:</label>
-          <p class="form-control-plaintext text-muted">{{ application.COLONIA }}</p>
+          <label class="form-label fw-semibold">Colonia:</label>
+          <p class="form-control-plaintext text-muted">{{ application.colonia }}</p>
         </div>
       </div>
 
       <div class="row g-3 mb-4">
         <div class="col-md-6">
-          <label class="form-label">Ciudad:</label>
-          <p class="form-control-plaintext text-muted">{{ application.CIUDAD }}</p>
+          <label class="form-label fw-semibold">Ciudad:</label>
+          <p class="form-control-plaintext text-muted">{{ application.ciudad }}</p>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Estado:</label>
-          <p class="form-control-plaintext text-muted">{{ application.ESTADO }}</p>
+          <label class="form-label fw-semibold">Estado:</label>
+          <p class="form-control-plaintext text-muted">{{ application.estado }}</p>
         </div>
       </div>
 
       <!-- Contacto -->
       <h5 class="fw-bold text-secondary">Contacto</h5>
       <hr>
-      <div class="row g-3 mb-3">
+      <div class="row g-3 mb-4">
         <div class="col-md-4">
-          <label class="form-label">Teléfono:</label>
-          <p class="form-control-plaintext text-muted">{{ studentInfo.house_phone }}</p>
+          <label class="form-label fw-semibold">Teléfono:</label>
+          <p class="form-control-plaintext text-muted">{{ application.telefono || studentInfo.house_phone }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Celular:</label>
-          <p class="form-control-plaintext text-muted">{{ studentInfo.cellphone }}</p>
+          <label class="form-label fw-semibold">Celular:</label>
+          <p class="form-control-plaintext text-muted">{{ application.celular || studentInfo.cellphone }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Correo electrónico:</label>
-          <p class="form-control-plaintext text-muted">{{ studentInfo.email }}</p>
+          <label class="form-label fw-semibold">Correo electrónico:</label>
+          <p class="form-control-plaintext text-muted">{{ application.correo || studentInfo.email }}</p>
         </div>
       </div>
 
-      <!-- Académicos -->
+      <!-- Datos académicos -->
       <h5 class="fw-bold text-secondary">Datos académicos</h5>
       <hr>
-      <div class="row g-3 mb-3">
+      <div class="row g-3 mb-4">
         <div class="col-md-4">
-          <label class="form-label">Carrera:</label>
-          <p class="form-control-plaintext text-muted">{{ studentInfo.carrera }}</p>
+          <label class="form-label fw-semibold">Carrera:</label>
+          <p class="form-control-plaintext text-muted">{{ application.carrera || studentInfo.carrera }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Matrícula:</label>
-          <p class="form-control-plaintext text-muted">{{ studentInfo.student_id }}</p>
+          <label class="form-label fw-semibold">Matrícula:</label>
+          <p class="form-control-plaintext text-muted">{{ application.matricula || studentInfo.student_id }}</p>
         </div>
         <div class="col-md-2">
-          <label class="form-label">Semestre:</label>
-          <p class="form-control-plaintext text-muted">{{ application.SEMESTRE }}</p>
+          <label class="form-label fw-semibold">Semestre:</label>
+          <p class="form-control-plaintext text-muted">{{ application.semestre }}</p>
         </div>
         <div class="col-md-2">
-          <label class="form-label">Materias cursadas:</label>
-          <p class="form-control-plaintext text-muted">{{ application.PORCENTAJE_MATERIAS }}</p>
+          <label class="form-label fw-semibold">% materias cursadas:</label>
+          <p class="form-control-plaintext text-muted">{{ application.porcentaje_materias }}</p>
         </div>
       </div>
 
-      <!-- Institución -->
+      <!-- Lugar de asignación -->
       <h5 class="fw-bold text-secondary">Lugar de asignación</h5>
       <hr>
       <div class="row g-3 mb-3">
         <div class="col-md-6">
-          <label class="form-label">Institución:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_NOMBRE }}</p>
+          <label class="form-label fw-semibold">Institución:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_nombre }}</p>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Departamento/Unidad:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_DEPARTAMENTO }}</p>
+          <label class="form-label fw-semibold">Departamento/Unidad:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_departamento }}</p>
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-md-4">
-          <label class="form-label">Calle:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_CALLE }}</p>
+          <label class="form-label fw-semibold">Calle:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_calle }}</p>
         </div>
         <div class="col-md-2">
-          <label class="form-label">Número:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_NUMERO }}</p>
+          <label class="form-label fw-semibold">Número:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_numero }}</p>
         </div>
         <div class="col-md-3">
-          <label class="form-label">Colonia:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_COLONIA }}</p>
+          <label class="form-label fw-semibold">Colonia:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_colonia }}</p>
         </div>
         <div class="col-md-3">
-          <label class="form-label">Ciudad:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_CIUDAD }}</p>
+          <label class="form-label fw-semibold">Ciudad:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_ciudad }}</p>
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-md-6">
-          <label class="form-label">Estado:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_ESTADO }}</p>
+          <label class="form-label fw-semibold">Estado:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_estado }}</p>
         </div>
         <div class="col-md-3">
-          <label class="form-label">Teléfono:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_TELEFONO }}</p>
+          <label class="form-label fw-semibold">Teléfono institución:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_telefono }}</p>
         </div>
         <div class="col-md-3">
-          <label class="form-label">Celular:</label>
-          <p class="form-control-plaintext text-muted">{{ application.INSTITUCION_CELULAR }}</p>
+          <label class="form-label fw-semibold">Celular institución:</label>
+          <p class="form-control-plaintext text-muted">{{ application.institucion_celular }}</p>
         </div>
       </div>
 
       <div class="row g-3 mb-3">
         <div class="col-md-4">
-          <label class="form-label">Zona:</label>
-          <p class="form-control-plaintext text-muted">{{ application.ZONA | titlecase }}</p>
+          <label class="form-label fw-semibold">Zona:</label>
+          <p class="form-control-plaintext text-muted">{{ application.zona | titlecase }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Horario:</label>
-          <p class="form-control-plaintext text-muted">{{ application.HORARIO }}</p>
+          <label class="form-label fw-semibold">Horario:</label>
+          <p class="form-control-plaintext text-muted">{{ application.horario }}</p>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Modalidad:</label>
-          <p class="form-control-plaintext text-muted">{{ application.MODALIDAD | titlecase }}</p>
+          <label class="form-label fw-semibold">Modalidad:</label>
+          <p class="form-control-plaintext text-muted">{{ application.modalidad | titlecase }}</p>
         </div>
       </div>
 
       <div class="row g-3 mb-4">
         <div class="col-md-6">
-          <label class="form-label">Plática de sensibilización:</label>
+          <label class="form-label fw-semibold">Plática de sensibilización:</label>
           <p class="form-control-plaintext text-muted">
-            {{ application.PLATICA_SENSIBILIZACION === 'si' ? 'Sí' : 'No' }}
+            {{ application.platica_sensibilizacion === 'si' ? 'Sí' : 'No' }}
           </p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Fecha de envío:</label>
+          <p class="form-control-plaintext text-muted">{{ application.submitted_at | date:'dd/MM/yyyy HH:mm' }}</p>
         </div>
       </div>
 
-      <!-- Acciones admin -->
-      <div class="d-flex justify-content-end mt-4">
-        <button class="btn btn-success me-2" (click)="updateStatus('accepted')"
+      <!-- Acciones -->
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <button class="btn btn-success" (click)="updateStatus('accepted')"
           [disabled]="application.status === 'accepted'">
-          Aprobar
+          ✓ Aprobar
         </button>
-        
-        <button class="btn btn-warning me-2" (click)="updateStatus('pending')"
+        <button class="btn btn-warning" (click)="updateStatus('pending')"
           [disabled]="application.status === 'pending'">
-          Pendiente
+          ⏳ Pendiente
         </button>
-
         <button class="btn btn-danger" (click)="updateStatus('rejected')"
           [disabled]="application.status === 'rejected'">
-          Rechazar
+          ✗ Rechazar
         </button>
-
       </div>
+
     </div>
+  </div>
+
+  <div *ngIf="!isLoading && !application" class="alert alert-warning mt-4">
+    No se encontró la solicitud para este estudiante.
   </div>
 </div>

@@ -1,0 +1,178 @@
+<div class="container-fluid mt-4 px-4">
+
+  <!-- Título y contadores -->
+  <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
+    <div>
+      <h4 class="fw-bold mb-1">Revisión de Reportes Bimestrales</h4>
+      <p class="text-muted mb-0">Gestiona y retroalimenta los reportes de servicio social</p>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      <span class="badge bg-warning text-dark fs-6 px-3 py-2">⏳ {{ pendingCount }} pendientes</span>
+      <span class="badge bg-success fs-6 px-3 py-2">✓ {{ approvedCount }} aprobados</span>
+      <span class="badge bg-danger fs-6 px-3 py-2">✗ {{ rejectedCount }} rechazados</span>
+    </div>
+  </div>
+
+  <!-- Mensajes globales -->
+  <div *ngIf="errorMsg" class="alert alert-danger alert-dismissible fade show">
+    {{ errorMsg }}
+    <button type="button" class="btn-close" (click)="errorMsg = ''"></button>
+  </div>
+  <div *ngIf="successMsg" class="alert alert-success alert-dismissible fade show">
+    {{ successMsg }}
+    <button type="button" class="btn-close" (click)="successMsg = ''"></button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="d-flex gap-3 mb-4 flex-wrap align-items-center">
+    <input
+      type="text"
+      class="form-control"
+      style="max-width: 280px;"
+      placeholder="Buscar por nombre, matrícula o carrera..."
+      [(ngModel)]="searchQuery"
+      (input)="aplicarFiltros()" />
+
+    <div class="btn-group" role="group">
+      <button class="btn btn-sm"
+        [class.btn-secondary]="filterStatus === 'all'"
+        [class.btn-outline-secondary]="filterStatus !== 'all'"
+        (click)="filterStatus = 'all'; aplicarFiltros()">Todos</button>
+      <button class="btn btn-sm"
+        [class.btn-warning]="filterStatus === 'pending'"
+        [class.btn-outline-warning]="filterStatus !== 'pending'"
+        (click)="filterStatus = 'pending'; aplicarFiltros()">Pendientes</button>
+      <button class="btn btn-sm"
+        [class.btn-success]="filterStatus === 'approved'"
+        [class.btn-outline-success]="filterStatus !== 'approved'"
+        (click)="filterStatus = 'approved'; aplicarFiltros()">Aprobados</button>
+      <button class="btn btn-sm"
+        [class.btn-danger]="filterStatus === 'rejected'"
+        [class.btn-outline-danger]="filterStatus !== 'rejected'"
+        (click)="filterStatus = 'rejected'; aplicarFiltros()">Rechazados</button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Cargando reportes...</p>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="!loading && filteredReports.length === 0" class="text-center py-5 text-muted">
+    <p class="fs-5">No hay reportes que coincidan con los filtros aplicados.</p>
+  </div>
+
+  <!-- Layout: islas + panel lateral -->
+  <div class="row g-0" *ngIf="!loading && filteredReports.length > 0">
+
+    <!-- Islas de reportes -->
+    <div [class]="selectedReport ? 'col-12 col-lg-7' : 'col-12'">
+      <div class="row g-3">
+        <div class="col-12 col-md-6" *ngFor="let r of filteredReports">
+          <div
+            class="card h-100 shadow-sm border-0 report-card"
+            [class.selected-card]="selectedReport?.id === r.id"
+            [class.border-warning]="r.status === 'pending'"
+            [class.border-success]="r.status === 'approved'"
+            [class.border-danger]="r.status === 'rejected'"
+            style="border-left: 4px solid !important; cursor: pointer;"
+            (click)="seleccionarReporte(r)">
+            <div class="card-body">
+              <!-- Cabecera -->
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h6 class="fw-bold mb-0">{{ r.nombre_estudiante }}</h6>
+                  <small class="text-muted">{{ r.matricula }} · {{ r.carrera }}</small>
+                </div>
+                <span class="badge {{ getStatusClass(r.status) }}">{{ getStatusLabel(r.status) }}</span>
+              </div>
+
+              <!-- Info rápida -->
+              <div class="d-flex gap-3 mb-2">
+                <span class="text-muted small">📋 Reporte #{{ r.report_number }}</span>
+                <span class="text-muted small">⏱ {{ r.hours_worked }} hrs</span>
+                <span class="text-muted small">📅 {{ r.submitted_at | date:'dd/MM/yy' }}</span>
+              </div>
+
+              <!-- Descripción recortada -->
+              <p class="mb-0 text-secondary small description-preview">{{ r.description }}</p>
+
+              <!-- Feedback badge si existe -->
+              <div *ngIf="r.feedback" class="mt-2">
+                <span class="badge bg-info text-dark">💬 Con feedback</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel lateral de revisión -->
+    <div class="col-12 col-lg-5 ps-lg-4 mt-4 mt-lg-0" *ngIf="selectedReport">
+      <div class="card shadow border-0 sticky-top" style="top: 80px;">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-semibold">Revisar Reporte #{{ selectedReport.report_number }}</span>
+          <button class="btn btn-sm btn-outline-secondary" (click)="cerrarPanel()">✕</button>
+        </div>
+        <div class="card-body">
+
+          <!-- Datos del estudiante -->
+          <div class="mb-3 p-3 bg-light rounded">
+            <p class="mb-1"><strong>Estudiante:</strong> {{ selectedReport.nombre_estudiante }}</p>
+            <p class="mb-1"><strong>Matrícula:</strong> {{ selectedReport.matricula }}</p>
+            <p class="mb-1"><strong>Carrera:</strong> {{ selectedReport.carrera }}</p>
+            <p class="mb-0"><strong>Horas trabajadas:</strong> {{ selectedReport.hours_worked }} hrs</p>
+          </div>
+
+          <!-- Estado actual -->
+          <div class="mb-3">
+            <span class="fw-semibold me-2">Estado:</span>
+            <span class="badge {{ getStatusClass(selectedReport.status) }}">{{ getStatusLabel(selectedReport.status) }}</span>
+          </div>
+
+          <!-- Descripción completa -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Descripción de actividades</label>
+            <div class="p-3 bg-light rounded" style="white-space: pre-wrap; font-size: 0.9rem; max-height: 200px; overflow-y: auto;">
+              {{ selectedReport.description }}
+            </div>
+          </div>
+
+          <!-- Campo de feedback -->
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Feedback <span class="text-muted fw-normal">(opcional)</span></label>
+            <textarea
+              class="form-control"
+              rows="4"
+              placeholder="Escribe comentarios, observaciones o correcciones para el estudiante..."
+              [(ngModel)]="feedbackInput">
+            </textarea>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="d-flex gap-2">
+            <button
+              class="btn btn-success flex-fill"
+              [disabled]="submitting || selectedReport.status === 'approved'"
+              (click)="revisar('approved')">
+              {{ submitting ? '...' : '✓ Aprobar' }}
+            </button>
+            <button
+              class="btn btn-danger flex-fill"
+              [disabled]="submitting || selectedReport.status === 'rejected'"
+              (click)="revisar('rejected')">
+              {{ submitting ? '...' : '✗ Rechazar' }}
+            </button>
+          </div>
+          <p *ngIf="selectedReport.status !== 'pending'" class="text-muted small mt-2 mb-0 text-center">
+            Este reporte ya fue revisado. Puedes cambiar su estado.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

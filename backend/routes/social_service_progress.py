@@ -7,7 +7,7 @@ router = APIRouter(prefix="/progreso")
 
 class ProgresoUpdate(BaseModel):
     papeleria_entregada: str  # 'Y' o 'N'
-    reportes_entregados: str  # 'Y' o 'N'
+    reportes_entregados: int  # 0 - 3
     horas_completadas: int
 
 

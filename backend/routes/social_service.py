@@ -60,7 +60,7 @@ def get_student_info(user_id: int):
         # Obtener información básica del alumno
         query = """
         SELECT 
-            s.student_id, s.email, s.cellphone, s.house_phone,
+            s.student_id, s.email, s.cellphone, s.house_phone, s.semester,
             c.name as carrera,
             up.apellido_paterno, up.apellido_materno, up.nombres
         FROM Students s
@@ -87,10 +87,11 @@ def get_student_info(user_id: int):
             "email": student[1],
             "cellphone": student[2],
             "house_phone": student[3],
-            "carrera": student[4],
-            "apellido_paterno": student[5],
-            "apellido_materno": student[6],
-            "nombres": student[7],
+            "semestre": student[4],
+            "carrera": student[5],
+            "apellido_paterno": student[6],
+            "apellido_materno": student[7],
+            "nombres": student[8],
             "has_existing_application": existing_app is not None,
         }
 
@@ -230,7 +231,7 @@ def submit_application(user_id: int, application: SocialServiceApplication):
          (student_id, papeleria_entregada, reportes_entregados, horas_completadas, updated_at)
          VALUES (%s, %s, %s, %s, NOW())
          """
-        cursor.execute(tracking_query, (student_id, "N", "N", 0))
+        cursor.execute(tracking_query, (student_id, "N", 0, 0))
 
         # Confirmar transacción
         conn.commit()
@@ -256,15 +257,17 @@ def get_full_application(student_id: int):
         cursor = conn.cursor()
 
         # Obtiene información del estudiante
+        # student_id en la URL es user_id (viene de socialserviceprogress.student_id)
         student_query = """
         SELECT 
             s.student_id, s.email, s.cellphone, s.house_phone,
             c.name as carrera,
-            up.apellido_paterno, up.apellido_materno, up.nombres
+            up.apellido_paterno, up.apellido_materno, up.nombres,
+            s.id as internal_id
         FROM Students s
         JOIN Career c ON s.career_id = c.id
         JOIN UserProfile up ON s.user_id = up.user_id
-        WHERE s.id = %s
+        WHERE s.user_id = %s
         """
         cursor.execute(student_query, (student_id,))
         student = cursor.fetchone()
@@ -272,9 +275,11 @@ def get_full_application(student_id: int):
         if not student:
             raise HTTPException(status_code=404, detail="Estudiante no encontrado")
 
-        # Obtiene la solicitud y la guarda en application
+        internal_student_id = student[8]  # s.id interno de la tabla Students
+
+        # Obtiene la solicitud — student_id en SocialServiceApplication es students.id
         app_query = "SELECT * FROM SocialServiceApplication WHERE student_id = %s"
-        cursor.execute(app_query, (student_id,))
+        cursor.execute(app_query, (internal_student_id,))
         columns = [col[0] for col in cursor.description]
         application = cursor.fetchone()
 

@@ -1,0 +1,98 @@
+<div class="container mt-5">
+
+  <!-- Cabecera -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h4 class="fw-bold mb-0">Mis Reportes de Servicio Social</h4>
+      <small class="text-muted">Horas aprobadas: <strong>{{ totalHoras }} hrs</strong></small>
+    </div>
+    <button class="btn btn-primary" (click)="toggleForm()">
+      {{ showForm ? '✕ Cancelar' : '+ Nuevo Reporte' }}
+    </button>
+  </div>
+
+  <!-- Mensajes -->
+  <div *ngIf="errorMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ errorMsg }}
+    <button type="button" class="btn-close" (click)="errorMsg = ''"></button>
+  </div>
+  <div *ngIf="successMsg" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMsg }}
+    <button type="button" class="btn-close" (click)="successMsg = ''"></button>
+  </div>
+
+  <!-- Formulario nuevo reporte -->
+  <div *ngIf="showForm" class="card shadow mb-4">
+    <div class="card-header fw-semibold">Nuevo Reporte</div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Descripción de actividades <span class="text-danger">*</span></label>
+        <textarea
+          class="form-control"
+          rows="4"
+          placeholder="Describe detalladamente las actividades realizadas durante el periodo (mínimo 20 caracteres)..."
+          [formControl]="$any(reportForm.controls['description'])"
+          [class.is-invalid]="reportForm.controls['description'].invalid && reportForm.controls['description'].touched">
+        </textarea>
+        <div class="invalid-feedback">La descripción debe tener al menos 20 caracteres.</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Horas trabajadas <span class="text-danger">*</span></label>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Ej. 40"
+          min="1"
+          max="500"
+          [formControl]="$any(reportForm.controls['hours_worked'])"
+          [class.is-invalid]="reportForm.controls['hours_worked'].invalid && reportForm.controls['hours_worked'].touched" />
+        <div class="invalid-feedback">Ingresa un número válido entre 1 y 500.</div>
+      </div>
+
+      <button
+        class="btn btn-success"
+        [disabled]="reportForm.invalid || submitting"
+        (click)="submitReporte()">
+        {{ submitting ? 'Enviando...' : 'Enviar Reporte' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Lista de reportes -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Cargando reportes...</p>
+  </div>
+
+  <div *ngIf="!loading && reports.length === 0" class="text-center py-5 text-muted">
+    <p class="fs-5">No has enviado ningún reporte aún.</p>
+    <p>Haz clic en <strong>"+ Nuevo Reporte"</strong> para comenzar.</p>
+  </div>
+
+  <div *ngFor="let r of reports" class="card shadow-sm mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h6 class="fw-bold mb-1">Reporte #{{ r.report_number }}</h6>
+          <span class="badge {{ getStatusClass(r.status) }} me-2">{{ getStatusLabel(r.status) }}</span>
+          <small class="text-muted">{{ r.hours_worked }} hrs &nbsp;·&nbsp; {{ r.submitted_at | date:'dd/MM/yyyy' }}</small>
+        </div>
+        <button
+          *ngIf="r.status === 'pending'"
+          class="btn btn-sm btn-outline-danger"
+          (click)="eliminarReporte(r.id)"
+          title="Eliminar reporte">
+          🗑
+        </button>
+      </div>
+
+      <p class="mt-2 mb-1 text-secondary" style="white-space: pre-wrap;">{{ r.description }}</p>
+
+      <div *ngIf="r.feedback" class="alert alert-info py-2 mb-0 mt-2">
+        <strong>Retroalimentación:</strong> {{ r.feedback }}
+      </div>
+    </div>
+  </div>
+
+</div>

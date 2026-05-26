@@ -10,9 +10,10 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './application-status.component.css'
 })
 export class ApplicationStatusComponent implements OnInit {
-  appStatus: string = 'en-proceso'; 
+  appStatus: string = 'en-proceso';
   entregaDocumentos: number = 0;
-  entregaReportes: number = 0;
+  entregaReportes: number = 0;   // 0-100 para la barra de progreso
+  reportesCount: number = 0;     // valor real 0-3 para mostrar en texto
   horasTrabajadas: number = 0;
 
   constructor(
@@ -38,8 +39,13 @@ export class ApplicationStatusComponent implements OnInit {
   cargarProgreso(studentId: number) {
     this.http.get<any>(`http://localhost:8000/progreso/por-usuario/${studentId}`).subscribe(data => {
       this.entregaDocumentos = data.papeleria_entregada === 'Y' ? 100 : 0;
-      this.entregaReportes = data.reportes_entregados === 'Y' ? 100 : 0;
-      this.horasTrabajadas = Math.min((data.horas_completadas / 400) * 100, 100)
+
+      // reportes_entregados ahora es INT 0-3; convertir a porcentaje sobre 3
+      const reportes = Number(data.reportes_entregados) || 0;
+      this.reportesCount = reportes;
+      this.entregaReportes = Math.round((reportes / 3) * 100);
+
+      this.horasTrabajadas = Math.min((data.horas_completadas / 400) * 100, 100);
       this.appStatus = data.status;
     });
   }

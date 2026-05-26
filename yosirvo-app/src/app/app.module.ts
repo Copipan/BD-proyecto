@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TestingComponent } from './components/testing/testing.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
+import { ReportsComponent } from './components/students/reports/reports.component';
+import { ReviewReportsComponent } from './components/admin/review-reports/review-reports.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ApplicationDetailComponent } from './components/admin/application-detai
     ProfileComponent,
     AdminProfileComponent,
     TestingComponent,
-    ApplicationDetailComponent
+    ApplicationDetailComponent,
+    ReportsComponent,
+    ReviewReportsComponent
   ],
   imports: [
     BrowserModule,

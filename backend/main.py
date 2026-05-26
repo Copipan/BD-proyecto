@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends
-from routes import login, user_profile, social_service_progress, social_service
+from routes import login, user_profile, social_service_progress, social_service, student_reports
 from fastapi.middleware.cors import CORSMiddleware
 from db import get_connection
 
@@ -9,6 +9,7 @@ app.include_router(login.router)
 app.include_router(user_profile.router)
 app.include_router(social_service_progress.router)
 app.include_router(social_service.router)
+app.include_router(student_reports.router)
 
 # Permite peticiones por parte de la app en angular
 app.add_middleware(

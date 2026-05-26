@@ -12,24 +12,23 @@
     </span>
   </div>
 
-
   <div class="card shadow mt-3">
     <div class="card-header text-white">
       <h5 class="mb-0">Tu progreso en el servicio social</h5>
     </div>
     <div class="card-body">
 
-      <p class="mb-1">Entrega de documentos<span class="float-end">{{ entregaDocumentos }}%</span></p>
+      <p class="mb-1">Entrega de documentos <span class="float-end">{{ entregaDocumentos }}%</span></p>
       <div class="progress mb-3">
         <div class="progress-bar bg-success" role="progressbar" [style.width]="entregaDocumentos + '%'" [attr.aria-valuenow]="entregaDocumentos" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
 
-      <p class="mb-1">Entrega de reportes <span class="float-end">{{ entregaReportes }}%</span></p>
+      <p class="mb-1">Reportes bimestrales <span class="float-end">{{ reportesCount }}/3</span></p>
       <div class="progress mb-3">
         <div class="progress-bar bg-info" role="progressbar" [style.width]="entregaReportes + '%'" [attr.aria-valuenow]="entregaReportes" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
 
-      <p class="mb-1">Horas trabajadas <span class="float-end">{{ horasTrabajadas }}%</span></p>
+      <p class="mb-1">Horas trabajadas <span class="float-end">{{ horasTrabajadas | number:'1.0-0' }}%</span></p>
       <div class="progress mb-3">
         <div class="progress-bar bg-warning" role="progressbar" [style.width]="horasTrabajadas + '%'" [attr.aria-valuenow]="horasTrabajadas" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
