@@ -17,6 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
 import { ReportsComponent } from './components/students/reports/reports.component';
 import { ReviewReportsComponent } from './components/admin/review-reports/review-reports.component';
+import { ManageProjectsComponent } from './components/admin/manage-projects/manage-projects.component';
+import { AvailableProjectsComponent } from './components/students/available-projects/available-projects.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ReviewReportsComponent } from './components/admin/review-reports/review
     TestingComponent,
     ApplicationDetailComponent,
     ReportsComponent,
-    ReviewReportsComponent
+    ReviewReportsComponent,
+    ManageProjectsComponent,
+    AvailableProjectsComponent
   ],
   imports: [
     BrowserModule,

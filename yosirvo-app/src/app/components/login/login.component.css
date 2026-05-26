@@ -1,15 +1,32 @@
-button {
-    background-color: #D5A521;
-    border: none;
+.login-wrapper {
+  background-color: var(--clr-bg);
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(107,79,160,.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(213,165,33,.10) 0%, transparent 55%);
 }
 
-button:hover,
-button:focus,
-button:active,
-button:focus:active,
-button:focus-visible,
-button:not(:disabled):not(.disabled):active {
-    background-color: #E5C56D !important;
-    box-shadow: none !important;
+.login-card {
+  width: 380px;
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid var(--clr-border) !important;
+  overflow: hidden;
 }
 
+.login-header {
+  background-color: var(--clr-purple);
+  padding: 1.5rem 1.75rem 1.25rem;
+}
+
+.login-header h4 {
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.login-header p {
+  color: rgba(255,255,255,.7);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}

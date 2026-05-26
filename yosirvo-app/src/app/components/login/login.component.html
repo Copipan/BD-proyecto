@@ -1,23 +1,22 @@
-<div class="d-flex justify-content-center align-items-center vh-100">
-  <div class="card" style="width: 20rem;">
-    <div class="card-body">
-      <h5 class="card-title text-center mb-4">Iniciar sesión</h5>
-
+<div class="login-wrapper d-flex justify-content-center align-items-center vh-100">
+  <div class="login-card card">
+    <div class="login-header">
+      <h4 class="mb-0">Servicio Social</h4>
+      <p class="mb-0 mt-1">Facultad de Ingenieria</p>
+    </div>
+    <div class="card-body p-4">
       <form (ngSubmit)="login()" #loginForm="ngForm">
-
         <div class="mb-3">
-          <input type="text" class="form-control" id="username" name="username" required [(ngModel)]="username"
-            placeholder="Ingresa tu usuario">
+          <label for="username" class="form-label">Usuario</label>
+          <input type="text" class="form-control" id="username" name="username"
+            required [(ngModel)]="username" placeholder="Ingresa tu usuario" autocomplete="username">
         </div>
-
-        <div class="mb-3">
-          <label for="password" class="form-label">Contraseña:</label>
-          <input type="password" class="form-control" id="password" name="password" required [(ngModel)]="password"
-            placeholder="Ingresa tu contraseña">
+        <div class="mb-4">
+          <label for="password" class="form-label">Contrasena</label>
+          <input type="password" class="form-control" id="password" name="password"
+            required [(ngModel)]="password" placeholder="Ingresa tu contrasena" autocomplete="current-password">
         </div>
-
-        <button type="submit" class="btn btn-primary w-100">  Login </button>
-
+        <button type="submit" class="btn btn-primary w-100">Iniciar sesion</button>
       </form>
     </div>
   </div>

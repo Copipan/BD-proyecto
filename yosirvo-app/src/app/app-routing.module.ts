@@ -12,6 +12,8 @@ import { TestingComponent } from './components/testing/testing.component';
 import { ApplicationDetailComponent } from './components/admin/application-detail/application-detail.component';
 import { ReportsComponent } from './components/students/reports/reports.component';
 import { ReviewReportsComponent } from './components/admin/review-reports/review-reports.component';
+import { ManageProjectsComponent } from './components/admin/manage-projects/manage-projects.component';
+import { AvailableProjectsComponent } from './components/students/available-projects/available-projects.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -23,7 +25,8 @@ const routes: Routes = [
       { path: 'student-profile', component: ProfileComponent },
       { path: 'apply-form', component: ApplyFormComponent },
       { path: 'application-status', component: ApplicationStatusComponent },
-      { path: 'reports', component: ReportsComponent }
+      { path: 'reports', component: ReportsComponent },
+      { path: 'available-projects', component: AvailableProjectsComponent }
     ]
   },
 
@@ -33,6 +36,7 @@ const routes: Routes = [
     children: [
       { path: 'review-applications', component: ReviewApplicationsComponent },
       { path: 'review-reports', component: ReviewReportsComponent },
+      { path: 'manage-projects', component: ManageProjectsComponent },
       { path: '', redirectTo: 'admin-profile', pathMatch: 'full' },
       { path: 'admin-profile', component: AdminProfileComponent },
     ]
